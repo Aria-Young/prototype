@@ -478,9 +478,9 @@
             <span class="badge">2</span>
         </div>
 
-        <div class="sidebar-item" onclick="switchTab('ai')" id="nav-ai">
-            <i class="fas fa-robot"></i>
-            <span class="tooltip">AI报告</span>
+        <div class="sidebar-item" onclick="switchTab('compare')" id="nav-compare">
+            <i class="fas fa-balance-scale"></i>
+            <span class="tooltip">对比分析</span>
         </div>
 
         <div class="sidebar-divider"></div>
@@ -1020,11 +1020,8 @@
                 case 'zone':
                     showZoneList();
                     break;
-                case 'ai':
-                    toggleAIChat();
-                    // 恢复home的激活状态
-                    document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
-                    document.getElementById('nav-home').classList.add('active');
+                case 'compare':
+                    showCompareHistory();
                     break;
             }
         }
@@ -2286,6 +2283,121 @@
             toast.innerHTML = `<i class="fas fa-${type === 'warning' ? 'exclamation-circle' : 'info-circle'}"></i> ${message}`;
             document.body.appendChild(toast);
             setTimeout(() => toast.remove(), 2000);
+        }
+
+
+        // ============ 对比历史/候选清单 ============
+        let compareHistory = [];
+
+        function showCompareHistory() {
+            closeSidePanel();
+            closeLeftPanel();
+            closeComparePanel();
+            closeCompareReport();
+
+            const panel = document.getElementById('leftPanel');
+            const content = document.getElementById('leftPanelContent');
+
+            // 模拟一些历史数据
+            if (compareHistory.length === 0) {
+                compareHistory = [
+                    { id: 1, name: '中关村选址对比', date: '2026-05-12', grids: ['G-018', 'G-005', 'G-023'], best: 'G-005' },
+                    { id: 2, name: '亦庄区域对比', date: '2026-05-10', grids: ['G-031', 'G-042', 'G-056'], best: 'G-042' },
+                    { id: 3, name: '通州商圈对比', date: '2026-05-08', grids: ['G-012', 'G-089'], best: 'G-089' }
+                ];
+            }
+
+            content.innerHTML = `
+                <div class="animate-fade-in">
+                    <div class="flex items-center justify-between mb-5">
+                        <h2 class="text-base font-bold text-white">
+                            <i class="fas fa-balance-scale text-blue-400 mr-2 text-sm"></i>对比分析
+                        </h2>
+                        <button onclick="closeLeftPanel()" class="text-slate-500 hover:text-white w-7 h-7 rounded-lg hover:bg-slate-800 flex items-center justify-center transition-colors">
+                            <i class="fas fa-times text-sm"></i>
+                        </button>
+                    </div>
+
+                    <div class="mb-4 p-3 bg-slate-800/40 rounded-xl border border-slate-700/30">
+                        <div class="grid grid-cols-2 gap-3 text-center">
+                            <div>
+                                <div class="text-xl font-bold text-white">${compareHistory.length}</div>
+                                <div class="text-xs text-slate-500">已保存对比</div>
+                            </div>
+                            <div>
+                                <div class="text-xl font-bold text-amber-400">${compareHistory.filter(h => h.best).length}</div>
+                                <div class="text-xs text-slate-500">已确定选址</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="search-input" placeholder="搜索对比记录..." oninput="filterCompareHistory(this.value)">
+                    </div>
+
+                    <div class="space-y-2" id="compareHistoryList">
+                        ${compareHistory.map(item => `
+                            <div class="list-item" onclick="loadCompareHistory(${item.id})">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="font-medium text-white text-sm">${item.name}</span>
+                                    <span class="tag tag-green text-xs">${item.best}</span>
+                                </div>
+                                <div class="text-xs text-slate-500 mb-1">对比栅格: ${item.grids.join('、')}</div>
+                                <div class="flex items-center justify-between text-xs">
+                                    <span class="text-slate-600">${item.date}</span>
+                                    <span class="text-green-400"><i class="fas fa-check-circle mr-1" style="font-size:9px"></i>已确定最优</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="mt-5 p-4 bg-blue-500/8 rounded-xl border border-blue-500/15">
+                        <div class="text-xs text-slate-500 mb-2">快速开始</div>
+                        <p class="text-sm text-slate-400 mb-3">在地图上点击任意栅格，选择"对比"按钮即可开始新的对比分析</p>
+                        <button onclick="closeLeftPanel(); showToast('请在地图上点击栅格开始对比', 'info');" class="btn btn-primary w-full justify-center py-2 text-xs">
+                            <i class="fas fa-map mr-2" style="font-size:10px"></i> 去地图选择栅格
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            panel.classList.add('open');
+        }
+
+        function filterCompareHistory(query) {
+            const items = document.querySelectorAll('#compareHistoryList .list-item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(query.toLowerCase()) ? 'block' : 'none';
+            });
+        }
+
+        function loadCompareHistory(id) {
+            const item = compareHistory.find(h => h.id === id);
+            if (!item) return;
+
+            showToast(`加载对比记录: ${item.name}`, 'info');
+            // 这里可以加载历史对比数据并展示报告
+        }
+
+        // 覆盖原来的saveCompareResult，使其保存到历史记录
+        function saveCompareResult() {
+            const newRecord = {
+                id: compareHistory.length + 1,
+                name: `对比记录 #${compareHistory.length + 1}`,
+                date: new Date().toISOString().split('T')[0],
+                grids: [compareBaseGrid.id, ...compareSelectedGrids],
+                best: compareSelectedGrids.length > 0 ? compareSelectedGrids[0] : compareBaseGrid.id
+            };
+            compareHistory.unshift(newRecord);
+
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-16 right-6 bg-green-500 text-white px-5 py-2.5 rounded-xl shadow-lg z-50 animate-fade-in flex items-center gap-2 text-sm';
+            toast.innerHTML = '<i class="fas fa-check-circle"></i> 对比结果已保存到候选清单';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+
+            closeCompareReport();
         }
 
     </script>
