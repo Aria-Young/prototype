@@ -444,6 +444,62 @@
             color: #fbbf24; margin-top: 2px; font-size: 11px;
         }
 
+    
+        .grid-detail-panel {
+            position: fixed; top: 48px; right: -480px; width: 460px;
+            height: calc(100vh - 88px); background: rgba(11, 17, 33, 0.98);
+            backdrop-filter: blur(24px); 
+            border-left: 1px solid rgba(51, 65, 85, 0.4);
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100; overflow-y: auto; padding: 20px;
+        }
+        .grid-detail-panel.open { right: 0; }
+
+        .grid-score-ring {
+            width: 72px; height: 72px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; flex-shrink: 0;
+        }
+        .grid-score-ring svg {
+            position: absolute; inset: 0; transform: rotate(-90deg);
+        }
+        .grid-score-ring circle.bg { fill: none; stroke: rgba(30, 41, 59, 0.6); stroke-width: 4; }
+        .grid-score-ring circle.fill { fill: none; stroke-width: 4; stroke-linecap: round;
+            transition: stroke-dashoffset 0.6s ease;
+        }
+        .grid-score-ring .score-text {
+            position: relative; z-index: 1;
+            font-size: 18px; font-weight: 700;
+        }
+
+        .metric-row {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 0; border-bottom: 1px solid rgba(51, 65, 85, 0.2);
+        }
+        .metric-row:last-child { border-bottom: none; }
+        .metric-icon {
+            width: 28px; height: 28px; border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; flex-shrink: 0;
+        }
+        .metric-info { flex: 1; }
+        .metric-label { font-size: 10px; color: #64748b; }
+        .metric-value { font-size: 12px; color: #e2e8f0; font-weight: 500; }
+        .metric-badge {
+            padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600;
+        }
+
+        .nearby-grid-item {
+            display: flex; align-items: center; gap: 8px;
+            padding: 6px 10px; border-radius: 8px;
+            background: rgba(30, 41, 59, 0.4); margin-bottom: 5px;
+        }
+        .nearby-grid-item .ng-score {
+            width: 32px; height: 32px; border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 700; flex-shrink: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -615,6 +671,11 @@
         <div id="leftPanelContent"></div>
     </div>
 
+
+    <!-- 栅格详情面板 -->
+    <div class="grid-detail-panel" id="gridDetailPanel">
+        <div id="gridDetailContent"></div>
+    </div>
 
     <!-- 对比选择面板 -->
     <div class="compare-panel" id="comparePanel">
@@ -845,9 +906,14 @@
                 if (!e.target.closest('.side-panel') && !e.target.closest('.branch-marker') && 
                     !e.target.closest('.recommend-marker') && !e.target.closest('.zone-area') &&
                     !e.target.closest('.grid-cell') && !e.target.closest('.left-panel') &&
-                    !e.target.closest('.sidebar') && !e.target.closest('.legend-card')) {
+                    !e.target.closest('.sidebar') && !e.target.closest('.legend-card') &&
+                    !e.target.closest('.grid-detail-panel') && !e.target.closest('.info-popup') &&
+                    !e.target.closest('.compare-panel') && !e.target.closest('.compare-report-panel')) {
                     closeSidePanel();
                     closeLeftPanel();
+                    closeGridDetail();
+                    closeComparePanel();
+                    closeCompareReport();
                 }
             });
 
@@ -1022,7 +1088,10 @@
         }
 
         // ============ 栅格弹窗 ============
+        let currentPopupGrid = null;
+
         function showGridPopup(grid, element) {
+            currentPopupGrid = grid;
             const popup = document.getElementById('infoPopup');
             const content = document.getElementById('popupContent');
 
@@ -1039,8 +1108,8 @@
                     <div class="flex justify-between"><span class="text-slate-500">平均房价</span><span class="text-slate-300">¥85,000/㎡</span></div>
                 </div>
                 <div class="mt-3 flex gap-2">
-                    <button class="btn btn-primary text-xs flex-1 py-1.5" onclick="showGridDetail('${grid.id}')">详情</button>
-                    <button class="btn btn-secondary text-xs flex-1 py-1.5" onclick="openComparePanel('${grid.id}')">对比</button>
+                    <button id="btnGridDetail" class="btn btn-primary text-xs flex-1 py-1.5">详情</button>
+                    <button id="btnGridCompare" class="btn btn-secondary text-xs flex-1 py-1.5">对比</button>
                 </div>
             `;
 
@@ -1048,10 +1117,32 @@
             popup.style.top = element.offsetTop + 'px';
             popup.classList.add('show');
 
+            // 绑定按钮事件
+            setTimeout(() => {
+                const detailBtn = document.getElementById('btnGridDetail');
+                const compareBtn = document.getElementById('btnGridCompare');
+
+                if (detailBtn) {
+                    detailBtn.onclick = function(e) {
+                        e.stopPropagation();
+                        popup.classList.remove('show');
+                        if (currentPopupGrid) showGridDetail(currentPopupGrid.id);
+                    };
+                }
+                if (compareBtn) {
+                    compareBtn.onclick = function(e) {
+                        e.stopPropagation();
+                        popup.classList.remove('show');
+                        if (currentPopupGrid) openComparePanel(currentPopupGrid.id);
+                    };
+                }
+            }, 0);
+
             setTimeout(() => {
                 document.addEventListener('click', function closePopup(e) {
                     if (!popup.contains(e.target) && !element.contains(e.target)) {
                         popup.classList.remove('show');
+                        currentPopupGrid = null;
                         document.removeEventListener('click', closePopup);
                     }
                 });
@@ -2385,6 +2476,184 @@
             setTimeout(() => toast.remove(), 2500);
 
             closeCompareReport();
+        }
+
+
+        // ============ 栅格详情 ============
+        function showGridDetail(gridId) {
+            const grid = mockData.grids.find(g => g.id === gridId);
+            if (!grid) return;
+
+            closeSidePanel();
+            closeLeftPanel();
+            closeComparePanel();
+            closeCompareReport();
+            document.getElementById('infoPopup').classList.remove('show');
+
+            const panel = document.getElementById('gridDetailPanel');
+            const content = document.getElementById('gridDetailContent');
+
+            // 生成详细数据
+            const detail = {
+                density: Math.floor(8 + Math.random() * 15),
+                merchants: Math.floor(80 + Math.random() * 150),
+                price: Math.floor(60000 + Math.random() * 80000),
+                population: Math.floor(5000 + Math.random() * 10000),
+                consumption: Math.floor(3000 + Math.random() * 4000),
+                flow: Math.floor(70 + Math.random() * 25),
+                compete: Math.floor(60 + Math.random() * 30),
+                access: Math.floor(70 + Math.random() * 25),
+                growth: Math.floor(65 + Math.random() * 30),
+                cost: Math.floor(60 + Math.random() * 30),
+                nearby: mockData.grids.filter(g => g.id !== grid.id).sort(() => Math.random() - 0.5).slice(0, 5).map(g => ({...g, dist: Math.floor(200 + Math.random() * 1500)})),
+                pois: [
+                    {type: '餐饮', count: Math.floor(20 + Math.random() * 40), icon: 'fa-utensils', color: '#f59e0b'},
+                    {type: '零售', count: Math.floor(15 + Math.random() * 30), icon: 'fa-shopping-bag', color: '#3b82f6'},
+                    {type: '教育', count: Math.floor(3 + Math.random() * 10), icon: 'fa-graduation-cap', color: '#10b981'},
+                    {type: '医疗', count: Math.floor(2 + Math.random() * 6), icon: 'fa-hospital', color: '#ef4444'},
+                    {type: '金融', count: Math.floor(5 + Math.random() * 12), icon: 'fa-university', color: '#8b5cf6'},
+                    {type: '办公', count: Math.floor(10 + Math.random() * 25), icon: 'fa-building', color: '#64748b'}
+                ]
+            };
+
+            const scoreColor = grid.score >= 85 ? '#10b981' : grid.score >= 75 ? '#3b82f6' : '#f59e0b';
+            const circumference = 2 * Math.PI * 34;
+            const offset = circumference - (grid.score / 100) * circumference;
+
+            content.innerHTML = `
+                <div class="animate-fade-in">
+                    <div class="flex items-center justify-between mb-5">
+                        <div class="flex items-center gap-3">
+                            <div class="grid-score-ring">
+                                <svg viewBox="0 0 72 72">
+                                    <circle class="bg" cx="36" cy="36" r="34"/>
+                                    <circle class="fill" cx="36" cy="36" r="34" 
+                                        stroke="${scoreColor}" 
+                                        stroke-dasharray="${circumference}" 
+                                        stroke-dashoffset="${offset}"/>
+                                </svg>
+                                <div class="score-text" style="color: ${scoreColor}">${grid.score}</div>
+                            </div>
+                            <div>
+                                <h2 class="text-lg font-bold text-white">${grid.id}</h2>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <span class="tag ${grid.score >= 85 ? 'tag-green' : grid.score >= 75 ? 'tag-blue' : 'tag-amber'}">${grid.type}TOP</span>
+                                    ${grid.rank ? `<span class="tag tag-amber">第${grid.rank}位</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <button id="btnCloseGridDetail" class="text-slate-500 hover:text-white w-7 h-7 rounded-lg hover:bg-slate-800 flex items-center justify-center transition-colors">
+                            <i class="fas fa-times text-sm"></i>
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-chart-bar text-blue-400 text-xs"></i> 核心指标</div>
+                        <div class="space-y-1">
+                            <div class="metric-row">
+                                <div class="metric-icon" style="background: rgba(239,68,68,0.15); color: #f87171;"><i class="fas fa-building"></i></div>
+                                <div class="metric-info"><div class="metric-label">同业密度</div><div class="metric-value">${detail.density} 家/km²</div></div>
+                                <span class="metric-badge ${detail.density > 12 ? 'tag-red' : 'tag-green'}">${detail.density > 12 ? '密集' : '适中'}</span>
+                            </div>
+                            <div class="metric-row">
+                                <div class="metric-icon" style="background: rgba(59,130,246,0.15); color: #60a5fa;"><i class="fas fa-store"></i></div>
+                                <div class="metric-info"><div class="metric-label">商户数量</div><div class="metric-value">${detail.merchants} 家</div></div>
+                                <span class="metric-badge ${detail.merchants > 120 ? 'tag-green' : 'tag-amber'}">${detail.merchants > 120 ? '丰富' : '一般'}</span>
+                            </div>
+                            <div class="metric-row">
+                                <div class="metric-icon" style="background: rgba(245,158,11,0.15); color: #fbbf24;"><i class="fas fa-home"></i></div>
+                                <div class="metric-info"><div class="metric-label">平均房价</div><div class="metric-value">¥${(detail.price/10000).toFixed(1)} 万/㎡</div></div>
+                                <span class="metric-badge ${detail.price > 80000 ? 'tag-amber' : 'tag-green'}">${detail.price > 80000 ? '高价' : '适中'}</span>
+                            </div>
+                            <div class="metric-row">
+                                <div class="metric-icon" style="background: rgba(16,185,129,0.15); color: #34d399;"><i class="fas fa-users"></i></div>
+                                <div class="metric-info"><div class="metric-label">常住人口</div><div class="metric-value">${detail.population.toLocaleString()} 人</div></div>
+                                <span class="metric-badge ${detail.population > 8000 ? 'tag-green' : 'tag-amber'}">${detail.population > 8000 ? '密集' : '一般'}</span>
+                            </div>
+                            <div class="metric-row">
+                                <div class="metric-icon" style="background: rgba(168,85,247,0.15); color: #c084fc;"><i class="fas fa-wallet"></i></div>
+                                <div class="metric-info"><div class="metric-label">人均消费</div><div class="metric-value">¥${detail.consumption}/月</div></div>
+                                <span class="metric-badge ${detail.consumption > 4000 ? 'tag-green' : 'tag-amber'}">${detail.consumption > 4000 ? '高' : '中'}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title flex justify-between">
+                            <span><i class="fas fa-bullseye text-purple-400 text-xs"></i> 六维评分</span>
+                            <span class="text-xs text-slate-500">满分100</span>
+                        </div>
+                        <div class="space-y-2 mt-3">
+                            ${[['客流指数', detail.flow], ['竞争指数', detail.compete], ['可达指数', detail.access], ['成长指数', detail.growth], ['成本指数', detail.cost]].map(([label, val]) => `
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-slate-400">${label}</span>
+                                        <span class="text-slate-200 font-medium">${val}</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill ${val >= 85 ? 'bg-green-500' : val >= 70 ? 'bg-blue-500' : 'bg-amber-500'}" style="width: ${val}%"></div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-map-pin text-red-400 text-xs"></i> POI分布</div>
+                        <div class="grid grid-cols-3 gap-2">
+                            ${detail.pois.map(p => `
+                                <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                    <i class="fas ${p.icon}" style="color: ${p.color}; font-size: 14px;"></i>
+                                    <div class="text-sm font-bold text-white mt-1">${p.count}</div>
+                                    <div class="text-xs text-slate-500">${p.type}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-th text-green-400 text-xs"></i> 周边高分栅格</div>
+                        <div class="space-y-1.5">
+                            ${detail.nearby.map(ng => `
+                                <div class="nearby-grid-item">
+                                    <div class="ng-score ${ng.score >= 85 ? 'bg-green-500/20 text-green-400' : ng.score >= 75 ? 'bg-blue-500/20 text-blue-400' : 'bg-amber-500/20 text-amber-400'}">${ng.score}</div>
+                                    <div class="flex-1">
+                                        <div class="text-sm text-white">${ng.id}</div>
+                                        <div class="text-xs text-slate-500">${ng.type}TOP ${ng.rank ? '第'+ng.rank+'位' : ''}</div>
+                                    </div>
+                                    <div class="text-xs text-slate-500">${ng.dist}m</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 mt-4">
+                        <button id="btnGridDetailCompare" class="btn btn-primary flex-1 justify-center py-2 text-xs">
+                            <i class="fas fa-balance-scale mr-1" style="font-size:9px"></i> 加入对比
+                        </button>
+                        <button id="btnGridDetailExport" class="btn btn-secondary flex-1 justify-center py-2 text-xs">
+                            <i class="fas fa-download mr-1" style="font-size:9px"></i> 导出数据
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            panel.classList.add('open');
+
+            // 绑定事件
+            setTimeout(() => {
+                const closeBtn = document.getElementById('btnCloseGridDetail');
+                const compareBtn = document.getElementById('btnGridDetailCompare');
+                const exportBtn = document.getElementById('btnGridDetailExport');
+
+                if (closeBtn) closeBtn.onclick = closeGridDetail;
+                if (compareBtn) compareBtn.onclick = function() { openComparePanel(grid.id); };
+                if (exportBtn) exportBtn.onclick = function() { showExportModal('grid', '栅格数据'); };
+            }, 50);
+        }
+
+        function closeGridDetail() {
+            document.getElementById('gridDetailPanel').classList.remove('open');
         }
 
     </script>
