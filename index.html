@@ -1588,22 +1588,22 @@
                         <div class="relative mt-4 mb-2">
                             <!-- 四象限背景 -->
                             <div class="grid grid-cols-2 gap-1 p-1 bg-slate-800/30 rounded-xl">
-                                <div class="p-3 rounded-lg ${branch.compositeScore.marketPotential >= 70 && branch.compositeScore.customerValue >= 70 ? 'bg-emerald-500/10 border border-emerald-500/20' : 'bg-slate-800/20'}">
+                                <div class="p-3 rounded-lg bg-slate-800/40">
                                     <div class="text-xs text-slate-500 mb-1">区域市场潜力</div>
                                     <div class="text-lg font-bold ${getScoreColor(branch.compositeScore.marketPotential)}">${branch.compositeScore.marketPotential}</div>
                                     <div class="text-xs ${getScoreColor(branch.compositeScore.marketPotential)}">${getScoreTag(branch.compositeScore.marketPotential)}</div>
                                 </div>
-                                <div class="p-3 rounded-lg ${branch.compositeScore.customerValue >= 70 && branch.compositeScore.businessEfficiency >= 70 ? 'bg-emerald-500/10 border border-emerald-500/20' : 'bg-slate-800/20'}">
+                                <div class="p-3 rounded-lg bg-slate-800/40">
                                     <div class="text-xs text-slate-500 mb-1">客户价值潜力</div>
                                     <div class="text-lg font-bold ${getScoreColor(branch.compositeScore.customerValue)}">${branch.compositeScore.customerValue}</div>
                                     <div class="text-xs ${getScoreColor(branch.compositeScore.customerValue)}">${getScoreTag(branch.compositeScore.customerValue)}</div>
                                 </div>
-                                <div class="p-3 rounded-lg ${branch.compositeScore.businessEfficiency >= 70 && branch.compositeScore.competition >= 70 ? 'bg-emerald-500/10 border border-emerald-500/20' : 'bg-slate-800/20'}">
+                                <div class="p-3 rounded-lg bg-slate-800/40">
                                     <div class="text-xs text-slate-500 mb-1">经营效益</div>
                                     <div class="text-lg font-bold ${getScoreColor(branch.compositeScore.businessEfficiency)}">${branch.compositeScore.businessEfficiency}</div>
                                     <div class="text-xs ${getScoreColor(branch.compositeScore.businessEfficiency)}">${getScoreTag(branch.compositeScore.businessEfficiency)}</div>
                                 </div>
-                                <div class="p-3 rounded-lg ${branch.compositeScore.competition >= 70 && branch.compositeScore.marketPotential >= 70 ? 'bg-emerald-500/10 border border-emerald-500/20' : 'bg-slate-800/20'}">
+                                <div class="p-3 rounded-lg bg-slate-800/40">
                                     <div class="text-xs text-slate-500 mb-1">竞争格局</div>
                                     <div class="text-lg font-bold ${getScoreColor(branch.compositeScore.competition)}">${branch.compositeScore.competition}</div>
                                     <div class="text-xs ${getScoreColor(branch.compositeScore.competition)}">${getScoreTag(branch.compositeScore.competition)}</div>
@@ -1684,28 +1684,7 @@
                                     ${branch.nearbyBD.length === 0 ? '<span class="text-slate-600 text-xs">无</span>' : ''}
                                 </div>
                             </div>
-                            <div>
-                                <div class="text-xs text-slate-500 mb-1.5 flex items-center gap-1">
-                                    <i class="fas fa-subway text-blue-400" style="font-size:9px"></i> 交通配套
-                                </div>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <div class="p-2 bg-slate-800/40 rounded-lg text-center">
-                                        <div class="text-sm font-bold text-blue-400">${Math.floor(1 + Math.random() * 3)}</div>
-                                        <div class="text-xs text-slate-500">地铁站</div>
-                                    </div>
-                                    <div class="p-2 bg-slate-800/40 rounded-lg text-center">
-                                        <div class="text-sm font-bold text-amber-400">${Math.floor(5 + Math.random() * 10)}</div>
-                                        <div class="text-xs text-slate-500">公交站点</div>
-                                    </div>
-                                    <div class="p-2 bg-slate-800/40 rounded-lg text-center">
-                                        <div class="text-sm font-bold text-green-400">${Math.floor(200 + Math.random() * 300)}</div>
-                                        <div class="text-xs text-slate-500">停车位</div>
-                                    </div>
-                                    <div class="p-2 bg-slate-800/40 rounded-lg text-center">
-                                        <div class="text-sm font-bold text-purple-400">${Math.floor(2 + Math.random() * 4)}</div>
-                                        <div class="text-xs text-slate-500">主干道交汇</div>
-                                    </div>
-                                </div>
+                            
                             </div>
                         </div>
                     </div>
@@ -2343,6 +2322,166 @@
             chartInstances = {};
         }
 
+        function showBranchList() {
+            const panel = document.getElementById('leftPanel');
+            const content = document.getElementById('leftPanelContent');
+
+            content.innerHTML = `
+                <div class="animate-fade-in">
+                    <div class="flex items-center justify-between mb-5">
+                        <h2 class="text-base font-bold text-white">
+                            <i class="fas fa-building text-blue-400 mr-2 text-sm"></i>网点列表
+                        </h2>
+                        <button onclick="closeLeftPanel()" class="text-slate-500 hover:text-white w-7 h-7 rounded-lg hover:bg-slate-800 flex items-center justify-center transition-colors">
+                            <i class="fas fa-times text-sm"></i>
+                        </button>
+                    </div>
+
+                    <div class="mb-4">
+                        <input type="text" class="search-input" placeholder="搜索网点..." oninput="filterBranches(this.value)">
+                    </div>
+
+                    <div class="space-y-1.5" id="branchList">
+                        ${mockData.branches.map(branch => `
+                            <div class="list-item" onclick="showBranchDetail(mockData.branches.find(b => b.id === ${branch.id}))">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="font-medium text-white text-sm">${branch.name}</span>
+                                    <span class="tag tag-blue text-xs">${branch.type}</span>
+                                </div>
+                                <div class="text-xs text-slate-500 mb-1.5">${branch.address}</div>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="text-slate-600">评分</span>
+                                    <span class="font-bold ${branch.score.total >= 85 ? 'text-green-400' : branch.score.total >= 75 ? 'text-blue-400' : 'text-amber-400'}">${branch.score.total}</span>
+                                    <span class="text-slate-700">|</span>
+                                    <span class="text-slate-600">${branch.openDate}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            panel.classList.add('open');
+        }
+
+        function showRecommendList() {
+            const panel = document.getElementById('leftPanel');
+            const content = document.getElementById('leftPanelContent');
+
+            content.innerHTML = `
+                <div class="animate-fade-in">
+                    <div class="flex items-center justify-between mb-5">
+                        <h2 class="text-base font-bold text-white">
+                            <i class="fas fa-map-marker-alt text-amber-400 mr-2 text-sm"></i>推荐选址
+                        </h2>
+                        <button onclick="closeLeftPanel()" class="text-slate-500 hover:text-white w-7 h-7 rounded-lg hover:bg-slate-800 flex items-center justify-center transition-colors">
+                            <i class="fas fa-times text-sm"></i>
+                        </button>
+                    </div>
+
+                    <div class="mb-4">
+                        <input type="text" class="search-input" placeholder="搜索推荐点位...">
+                    </div>
+
+                    <div class="space-y-1.5">
+                        ${mockData.recommends.map((rec, idx) => `
+                            <div class="list-item" onclick="showRecommendDetail(mockData.recommends.find(r => r.id === ${rec.id}))">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="font-medium text-white text-sm">${rec.name}</span>
+                                    <span class="w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-xs font-bold text-slate-900">${rec.score}</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="text-slate-600">排名</span>
+                                    <span class="font-bold text-amber-400">#${idx + 1}</span>
+                                    <span class="text-slate-700">|</span>
+                                    <span class="text-slate-600">客流 ${rec.details.flow}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            panel.classList.add('open');
+
+            if (!activeLayers.recommend) {
+                activeLayers.recommend = true;
+                document.querySelectorAll('.legend-item')[2].classList.add('active');
+                renderRecommends();
+            }
+        }
+
+        function showZoneList() {
+            const panel = document.getElementById('leftPanel');
+            const content = document.getElementById('leftPanelContent');
+
+            content.innerHTML = `
+                <div class="animate-fade-in">
+                    <div class="flex items-center justify-between mb-5">
+                        <h2 class="text-base font-bold text-white">
+                            <i class="fas fa-draw-polygon text-purple-400 mr-2 text-sm"></i>重点区域
+                        </h2>
+                        <button onclick="closeLeftPanel()" class="text-slate-500 hover:text-white w-7 h-7 rounded-lg hover:bg-slate-800 flex items-center justify-center transition-colors">
+                            <i class="fas fa-times text-sm"></i>
+                        </button>
+                    </div>
+
+                    <div class="mb-4 flex gap-2">
+                        <input type="text" class="search-input flex-1" placeholder="搜索区域...">
+                        <select class="search-input w-24 text-xs" onchange="filterZones(this.value)">
+                            <option value="all">全部</option>
+                            <option value="开发区">开发区</option>
+                            <option value="强县富镇">强县富镇</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4 p-3 bg-slate-800/40 rounded-xl border border-slate-700/30">
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div>
+                                <div class="text-base font-bold text-white">${mockData.zones.length}</div>
+                                <div class="text-xs text-slate-600">总计</div>
+                            </div>
+                            <div>
+                                <div class="text-base font-bold text-green-400">${mockData.zones.filter(z => !z.uncovered).length}</div>
+                                <div class="text-xs text-slate-600">已覆盖</div>
+                            </div>
+                            <div>
+                                <div class="text-base font-bold text-red-400">${mockData.zones.filter(z => z.uncovered).length}</div>
+                                <div class="text-xs text-slate-600">未覆盖</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5" id="zoneList">
+                        ${mockData.zones.map(zone => `
+                            <div class="list-item ${zone.uncovered ? 'border-red-500/20' : ''}" onclick="showZoneDetail(mockData.zones.find(z => z.id === ${zone.id}))">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="font-medium text-white text-sm">${zone.name}</span>
+                                    <span class="tag ${zone.uncovered ? 'tag-red' : 'tag-purple'} text-xs">${zone.type}</span>
+                                </div>
+                                <div class="text-xs text-slate-500 mb-1">${zone.subType || ''}</div>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="text-slate-600">${zone.area}km²</span>
+                                    <span class="text-slate-700">|</span>
+                                    <span class="text-slate-600">我行网点 ${zone.ourBranches}家</span>
+                                    <span class="text-slate-700">|</span>
+                                    <span class="${zone.uncovered ? 'text-red-400' : 'text-green-400'}">${zone.uncovered ? '未覆盖' : '已覆盖'}</span>
+                                </div>
+                                ${zone.uncovered ? `
+                                    <div class="mt-1.5 text-xs text-red-400 flex items-center gap-1">
+                                        <i class="fas fa-exclamation-circle" style="font-size:9px"></i> 建议增设网点
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            panel.classList.add('open');
+        }
+
+        
         function closeLeftPanel() {
             document.getElementById('leftPanel').classList.remove('open');
         }
