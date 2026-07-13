@@ -555,6 +555,252 @@
             bottom: 36px;
         }
 
+        /* 行政区划区域 - 视觉上淡化，hover时高亮，点击按钮交互 */
+        .admin-area {
+            position: absolute;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            background: rgba(148, 163, 184, 0.01);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .admin-area:hover {
+            border-color: rgba(6, 182, 212, 0.5);
+            background: rgba(6, 182, 212, 0.04);
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.08);
+        }
+        .admin-area .admin-label {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(100, 116, 139, 0.5);
+            color: rgba(255,255,255,0.6);
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            user-select: none;
+        }
+        .admin-area:hover .admin-label {
+            background: rgba(6, 182, 212, 0.85);
+            color: white;
+            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+        }
+        .admin-area .admin-detail-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background: rgba(6, 182, 212, 0.85);
+            color: white;
+            border: none;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+            z-index: 10;
+            pointer-events: auto;
+        }
+        .admin-area:hover .admin-detail-btn {
+            display: flex;
+        }
+        .admin-area .admin-detail-btn:hover {
+            background: rgba(6, 182, 212, 1);
+            transform: scale(1.1);
+        }
+        .admin-area .admin-detail-btn .tooltip {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s;
+            color: #e2e8f0;
+        }
+        .admin-area .admin-detail-btn:hover .tooltip {
+            opacity: 1;
+            top: -32px;
+        }
+        .admin-area .admin-stats {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            display: flex;
+            gap: 6px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            user-select: none;
+        }
+        .admin-area:hover .admin-stats {
+            opacity: 1;
+        }
+        .admin-area .admin-stats .stat-chip {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(51, 65, 85, 0.4);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            color: #22d3ee;
+        }
+
+
+        /* 土地类型图例 */
+        .land-legend {
+            position: fixed;
+            bottom: 56px;
+            left: 84px;
+            z-index: 50;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(51, 65, 85, 0.4);
+            border-radius: 14px;
+            padding: 14px;
+            width: 180px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            display: none;
+        }
+        .land-legend.open {
+            display: block;
+        }
+
+        /* 同业变更趋势图 */
+        .trend-chart-container {
+            position: relative;
+            height: 160px;
+            width: 100%;
+        }
+
+        /* 同业分布卡片 */
+        .competitor-dist-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(51, 65, 85, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+        .competitor-type-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 4px 0;
+        }
+        .competitor-type-bar .type-label {
+            width: 50px;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .competitor-type-bar .type-track {
+            flex: 1;
+            height: 18px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .competitor-type-bar .type-fill {
+            height: 100%;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding-right: 6px;
+            justify-content: flex-end;
+            font-size: 10px;
+            font-weight: 600;
+            transition: width 0.6s ease;
+        }
+
+        /* 变更趋势表格 */
+        .change-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        .change-table th {
+            padding: 8px 6px;
+            text-align: center;
+            color: #64748b;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+            background: rgba(30, 41, 59, 0.4);
+        }
+        .change-table td {
+            padding: 8px 6px;
+            text-align: center;
+            color: #cbd5e1;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.2);
+        }
+        .change-table .net-positive {
+            color: #34d399;
+            font-weight: 600;
+        }
+        .change-table .net-negative {
+            color: #f87171;
+            font-weight: 600;
+        }
+        .change-table .net-zero {
+            color: #94a3b8;
+        }
+
+        /* 行政区划详情面板 */
+        .admin-detail-panel {
+            position: fixed;
+            top: 48px;
+            right: -520px;
+            width: 500px;
+            height: calc(100vh - 88px);
+            background: rgba(11, 17, 33, 0.98);
+            backdrop-filter: blur(24px);
+            border-left: 1px solid rgba(51, 65, 85, 0.4);
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .admin-detail-panel.open {
+            right: 0;
+        }
+
+        /* 土地类型环形图 */
+        .land-type-ring {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .land-type-ring svg {
+            transform: rotate(-90deg);
+        }
+        .land-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: #94a3b8;
+            margin: 4px 0;
+        }
+        .land-legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
 </style>
 </head>
 <body>
@@ -623,12 +869,12 @@
                 <span class="flex items-center gap-1"><i class="fas fa-draw-polygon text-purple-500/60" style="font-size:10px"></i> 重点区域 5</span>
                 <span class="flex items-center gap-1 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-purple-500/60"></span>开发区 3</span>
                 <span class="flex items-center gap-1 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-cyan-500/60"></span>强县富镇 2</span>
+                
             </div>
             <div class="h-4 w-px bg-slate-700"></div>
             <div class="flex items-center gap-1 text-xs text-slate-500">
-                <button class="hover:text-slate-300 transition-colors px-1"><i class="fas fa-minus"></i></button>
-                <span>100%</span>
-                <button class="hover:text-slate-300 transition-colors px-1"><i class="fas fa-plus"></i></button>
+                <button class="hover:text-slate-300 transition-colors px-1" title="缩小"><i class="fas fa-minus"></i></button>
+                <button class="hover:text-slate-300 transition-colors px-1" title="放大"><i class="fas fa-plus"></i></button>
             </div>
         </div>
     </div>
@@ -642,6 +888,9 @@
 
         <!-- 重点区域层 -->
         <div id="zoneLayer"></div>
+
+        <!-- 行政区划层 -->
+        <div id="adminLayer"></div>
 
         <!-- 同业网点层 -->
         <div id="competitorLayer"></div>
@@ -718,6 +967,17 @@
         </div>
     </div>
 
+    <!-- 土地类型图例 -->
+    <div class="land-legend" id="landLegend">
+        <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xs font-semibold text-slate-300">土地类型</h3>
+            <button onclick="toggleLandLegend()" class="text-slate-500 hover:text-slate-300 text-xs">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="landLegendContent"></div>
+    </div>
+
     <!-- 快捷工具 -->
     <div class="quick-tools">
         <button class="quick-tool-btn" onclick="resetView()" title="重置视图">
@@ -736,6 +996,11 @@
         <div id="leftPanelContent"></div>
     </div>
 
+
+    <!-- 行政区划详情面板 -->
+    <div class="admin-detail-panel" id="adminDetailPanel">
+        <div id="adminDetailContent"></div>
+    </div>
 
     <!-- 栅格详情面板 -->
     <div class="grid-detail-panel" id="gridDetailPanel">
@@ -758,11 +1023,15 @@
         <div id="sidePanelContent"></div>
     </div>
 
+    <!-- 行政区划提示 -->
+    
+
     <!-- 底部信息栏 -->
     <div class="bottom-bar">
         <div class="flex items-center gap-5">
             <span class="flex items-center gap-1.5"><i class="fas fa-eye text-slate-600" style="font-size:10px"></i> 全市概览</span>
             <span class="flex items-center gap-1.5"><i class="fas fa-mouse-pointer text-slate-600" style="font-size:10px"></i> 点击元素查看详情</span>
+            <span class="flex items-center gap-1.5"><i class="fas fa-info-circle text-cyan-600" style="font-size:10px"></i> 鼠标悬停行政区划区域，点击 <i class="fas fa-chart-bar" style="font-size:9px"></i> 按钮查看详情</span>
         </div>
         <div class="flex items-center gap-4">
             <span>经度: 116.397 | 纬度: 39.916</span>
@@ -841,6 +1110,11 @@
             </div>
             <div id="reportModalContent"></div>
         </div>
+    </div>
+
+    <!-- 网点台账导出模态框 -->
+    <div class="modal-overlay" id="zoneExportModal">
+        <div class="modal-content" id="zoneExportModalContent"></div>
     </div>
 
     <script>
@@ -1048,29 +1322,539 @@
             zones: [
                 { id: 1, name: '经济技术开发区', type: '开发区', subType: '国家级经济技术开发区', x: 68, y: 70, w: 12, h: 10,
                   area: 45, ourBranches: 3, selfOperatedRatio: 67, competitorBranches: 8,
-                  uncovered: false },
+                  uncovered: false,
+                  branchChanges: {
+                    total: 3,
+                    trend: [
+                      { month: '2025-07', added: 0, removed: 0, net: 0 },
+                      { month: '2025-08', added: 0, removed: 0, net: 0 },
+                      { month: '2025-09', added: 0, removed: 0, net: 0 },
+                      { month: '2025-10', added: 1, removed: 0, net: 1, addedDetail: [{ name: '亦庄科创支行', code: 'BR-0021', type: '综合支行', address: '大兴区亦庄科创街15号', openDate: '2025-10-15', attr: '自营' }] },
+                      { month: '2025-11', added: 0, removed: 0, net: 0 },
+                      { month: '2025-12', added: 0, removed: 0, net: 0 },
+                      { month: '2026-01', added: 0, removed: 1, net: -1, removedDetail: [{ name: '亦庄代理点', code: 'BR-0018', type: '代理网点', address: '大兴区亦庄天宝中路3号', closeDate: '2026-01-20', attr: '代理', reason: '合同到期' }] },
+                      { month: '2026-02', added: 0, removed: 0, net: 0 },
+                      { month: '2026-03', added: 0, removed: 0, net: 0 },
+                      { month: '2026-04', added: 0, removed: 0, net: 0 },
+                      { month: '2026-05', added: 0, removed: 0, net: 0 },
+                      { month: '2026-06', added: 0, removed: 0, net: 0 }
+                    ],
+                    currentBranches: [
+                      { name: '亦庄支行', code: 'BR-0005', type: '科技支行', address: '大兴区亦庄经济技术开发区科创街', openDate: '2022-04-12', attr: '自营', status: '正常运营' },
+                      { name: '亦庄科创支行', code: 'BR-0021', type: '综合支行', address: '大兴区亦庄科创街15号', openDate: '2025-10-15', attr: '自营', status: '正常运营' }
+                    ]
+                  } },
                 { id: 2, name: '强县富镇-XX镇', type: '强县富镇', subType: '综合实力千强镇（2024）', x: 20, y: 70, w: 10, h: 8,
                   area: 12, ourBranches: 1, selfOperatedRatio: 100, competitorBranches: 2,
-                  uncovered: false },
+                  uncovered: false,
+                  branchChanges: {
+                    total: 1,
+                    trend: [
+                      { month: '2025-07', added: 0, removed: 0, net: 0 },
+                      { month: '2025-08', added: 0, removed: 0, net: 0 },
+                      { month: '2025-09', added: 0, removed: 0, net: 0 },
+                      { month: '2025-10', added: 0, removed: 0, net: 0 },
+                      { month: '2025-11', added: 0, removed: 0, net: 0 },
+                      { month: '2025-12', added: 0, removed: 0, net: 0 },
+                      { month: '2026-01', added: 0, removed: 0, net: 0 },
+                      { month: '2026-02', added: 0, removed: 0, net: 0 },
+                      { month: '2026-03', added: 0, removed: 0, net: 0 },
+                      { month: '2026-04', added: 0, removed: 0, net: 0 },
+                      { month: '2026-05', added: 0, removed: 0, net: 0 },
+                      { month: '2026-06', added: 0, removed: 0, net: 0 }
+                    ],
+                    currentBranches: [
+                      { name: 'XX镇支行', code: 'BR-0012', type: '综合支行', address: 'XX县XX镇中心大街88号', openDate: '2020-06-18', attr: '自营', status: '正常运营' }
+                    ]
+                  } },
                 { id: 3, name: '未来科学城', type: '开发区', subType: '高新技术产业开发区', x: 42, y: 15, w: 14, h: 12,
                   area: 28, ourBranches: 0, selfOperatedRatio: 0, competitorBranches: 1,
-                  uncovered: true },
+                  uncovered: true,
+                  branchChanges: {
+                    total: 0,
+                    trend: [
+                      { month: '2025-07', added: 0, removed: 0, net: 0 },
+                      { month: '2025-08', added: 0, removed: 0, net: 0 },
+                      { month: '2025-09', added: 0, removed: 0, net: 0 },
+                      { month: '2025-10', added: 0, removed: 0, net: 0 },
+                      { month: '2025-11', added: 0, removed: 0, net: 0 },
+                      { month: '2025-12', added: 0, removed: 1, net: -1, removedDetail: [{ name: '未来科学城社区支行', code: 'BR-0025', type: '社区支行', address: '昌平区未来科学城北区', closeDate: '2025-12-31', attr: '自营', reason: '业务量不足' }] },
+                      { month: '2026-01', added: 0, removed: 0, net: 0 },
+                      { month: '2026-02', added: 0, removed: 0, net: 0 },
+                      { month: '2026-03', added: 0, removed: 0, net: 0 },
+                      { month: '2026-04', added: 0, removed: 0, net: 0 },
+                      { month: '2026-05', added: 0, removed: 0, net: 0 },
+                      { month: '2026-06', added: 0, removed: 0, net: 0 }
+                    ],
+                    currentBranches: []
+                  } },
                 { id: 4, name: '中关村软件园', type: '开发区', subType: '省级经济开发区', x: 32, y: 22, w: 10, h: 10,
                   area: 15, ourBranches: 2, selfOperatedRatio: 50, competitorBranches: 6,
-                  uncovered: false },
+                  uncovered: false,
+                  branchChanges: {
+                    total: 2,
+                    trend: [
+                      { month: '2025-07', added: 0, removed: 0, net: 0 },
+                      { month: '2025-08', added: 0, removed: 0, net: 0 },
+                      { month: '2025-09', added: 0, removed: 0, net: 0 },
+                      { month: '2025-10', added: 0, removed: 0, net: 0 },
+                      { month: '2025-11', added: 0, removed: 0, net: 0 },
+                      { month: '2025-12', added: 0, removed: 0, net: 0 },
+                      { month: '2026-01', added: 1, removed: 0, net: 1, addedDetail: [{ name: '软件园社区支行', code: 'BR-0015', type: '社区支行', address: '海淀区软件园西路6号', openDate: '2026-01-10', attr: '代理', status: '正常运营' }] },
+                      { month: '2026-02', added: 0, removed: 0, net: 0 },
+                      { month: '2026-03', added: 0, removed: 0, net: 0 },
+                      { month: '2026-04', added: 0, removed: 0, net: 0 },
+                      { month: '2026-05', added: 0, removed: 0, net: 0 },
+                      { month: '2026-06', added: 0, removed: 0, net: 0 }
+                    ],
+                    currentBranches: [
+                      { name: '中关村支行', code: 'BR-0001', type: '综合支行', address: '海淀区中关村大街1号', openDate: '2019-03-15', attr: '自营', status: '正常运营' },
+                      { name: '软件园社区支行', code: 'BR-0015', type: '社区支行', address: '海淀区软件园西路6号', openDate: '2026-01-10', attr: '代理', status: '正常运营' }
+                    ]
+                  } },
                 { id: 5, name: '强县富镇-YY镇', type: '强县富镇', subType: '综合实力千强镇（2025）', x: 80, y: 25, w: 9, h: 8,
                   area: 10, ourBranches: 0, selfOperatedRatio: 0, competitorBranches: 3,
-                  uncovered: true }
+                  uncovered: true,
+                  branchChanges: {
+                    total: 0,
+                    trend: [
+                      { month: '2025-07', added: 0, removed: 0, net: 0 },
+                      { month: '2025-08', added: 0, removed: 0, net: 0 },
+                      { month: '2025-09', added: 0, removed: 0, net: 0 },
+                      { month: '2025-10', added: 0, removed: 0, net: 0 },
+                      { month: '2025-11', added: 0, removed: 0, net: 0 },
+                      { month: '2025-12', added: 0, removed: 0, net: 0 },
+                      { month: '2026-01', added: 0, removed: 0, net: 0 },
+                      { month: '2026-02', added: 0, removed: 0, net: 0 },
+                      { month: '2026-03', added: 0, removed: 0, net: 0 },
+                      { month: '2026-04', added: 0, removed: 0, net: 0 },
+                      { month: '2026-05', added: 0, removed: 0, net: 0 },
+                      { month: '2026-06', added: 0, removed: 0, net: 0 }
+                    ],
+                    currentBranches: []
+                  } }
             ],
 
-            grids: Array.from({length: 20}, (_, i) => ({
+            adminDivisions: [
+                { 
+                    id: 'AD-001', 
+                    name: '海淀区', 
+                    code: '110108',
+                    x: 35, y: 30, w: 18, h: 22,
+                    area: 431.0,
+                    perimeter: 128.5,
+                    landTypes: [
+                        { type: '耕地', area: 45.2, color: '#22c55e' },
+                        { type: '水体', area: 28.6, color: '#3b82f6' },
+                        { type: '林地', area: 68.4, color: '#10b981' },
+                        { type: '湿地', area: 12.3, color: '#06b6d4' },
+                        { type: '人造地表', area: 276.5, color: '#f59e0b' }
+                    ],
+                    business: {
+                        sme: 12450,
+                        retail: 3680,
+                        transport: 45,
+                        commercial: 128
+                    },
+                    population: {
+                        resident: 3250000,
+                        work: 2800000,
+                        maleRatio: { live: 52, work: 55 },
+                        ageDist: { live: [12, 35, 28, 18, 7], work: [8, 42, 32, 14, 4] },
+                        education: { live: [18, 42, 25], work: [10, 38, 32] },
+                        consumption: { live: '高', work: '高' },
+                        income: { live: 14500, work: 22000 },
+                        occupation: { live: [30, 22, 18, 30], work: [52, 18, 12, 18] },
+                        industry: { live: [28, 15, 12, 10], work: [42, 22, 8, 6] },
+                        lifeStage: { live: [22, 28, 35, 15], work: [32, 38, 25, 5] }
+                    },
+                    competitors: {
+                        total: 156,
+                        byType: { '国有行': 42, '股份行': 38, '城商行': 48, '农商行': 28 },
+                        changes: [
+                            { month: '2025-07', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 0, removed: 1, net: -1 } },
+                            { month: '2025-08', '国有行': { added: 0, removed: 1, net: -1 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 0, removed: 0, net: 0 }, '农商行': { added: 0, removed: 1, net: -1 } },
+                            { month: '2025-09', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 2, removed: 1, net: 1 }, '农商行': { added: 0, removed: 1, net: -1 } },
+                            { month: '2025-10', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2025-11', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2025-12', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 2, removed: 0, net: 2 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2026-01', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 2, removed: 0, net: 2 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2026-02', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 0, removed: 1, net: -1 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2026-03', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 1, net: -1 } },
+                            { month: '2026-04', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2026-05', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2026-06', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 0, net: 0 } }
+                        ]
+                    },
+                    zoneCoverage: {
+                        totalZones: 2,
+                        coveredZones: 1,
+                        uncoveredZones: 1,
+                        coverageRate: 50.0,
+                        trend: [
+                            { month: '2025-07', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 },
+                            { month: '2025-08', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 },
+                            { month: '2025-09', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 },
+                            { month: '2025-10', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 },
+                            { month: '2025-11', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 },
+                            { month: '2025-12', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 },
+                            { month: '2026-01', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 },
+                            { month: '2026-02', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 },
+                            { month: '2026-03', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 },
+                            { month: '2026-04', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 },
+                            { month: '2026-05', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 },
+                            { month: '2026-06', covered: 1, uncovered: 1, coverageRate: 50.0, added: 0, removed: 0 }
+                        ],
+                        zones: [
+                            { name: '中关村软件园', type: '开发区', subType: '省级经济开发区', status: '已覆盖', ourBranches: 2, selfOperatedRatio: 50, competitorBranches: 6, coverageRate: 66.7 },
+                            { name: '未来科学城', type: '开发区', subType: '高新技术产业开发区', status: '未覆盖', ourBranches: 0, selfOperatedRatio: 0, competitorBranches: 1, coverageRate: 0.0 }
+                        ]
+                    },
+                    ourBranches: 12,
+                    keyZones: ['中关村软件园', '未来科学城']
+                },
+                { 
+                    id: 'AD-002', 
+                    name: '朝阳区', 
+                    code: '110105',
+                    x: 58, y: 32, w: 20, h: 25,
+                    area: 470.8,
+                    perimeter: 142.3,
+                    landTypes: [
+                        { type: '耕地', area: 32.5, color: '#22c55e' },
+                        { type: '水体', area: 18.2, color: '#3b82f6' },
+                        { type: '林地', area: 45.8, color: '#10b981' },
+                        { type: '湿地', area: 8.5, color: '#06b6d4' },
+                        { type: '人造地表', area: 365.8, color: '#f59e0b' }
+                    ],
+                    business: {
+                        sme: 15800,
+                        retail: 5200,
+                        transport: 62,
+                        commercial: 185
+                    },
+                    population: {
+                        resident: 3450000,
+                        work: 3100000,
+                        maleRatio: { live: 50, work: 53 },
+                        ageDist: { live: [15, 38, 25, 15, 7], work: [10, 45, 28, 12, 5] },
+                        education: { live: [22, 40, 22], work: [12, 42, 28] },
+                        consumption: { live: '高', work: '高' },
+                        income: { live: 16800, work: 25000 },
+                        occupation: { live: [35, 20, 15, 30], work: [55, 15, 10, 20] },
+                        industry: { live: [25, 18, 14, 12], work: [38, 28, 10, 8] },
+                        lifeStage: { live: [25, 30, 32, 13], work: [35, 35, 25, 5] }
+                    },
+                    competitors: {
+                        total: 198,
+                        byType: { '国有行': 55, '股份行': 52, '城商行': 58, '农商行': 33 },
+                        changes: [
+                            { month: '2025-07', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 2, removed: 1, net: 1 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2025-08', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 0, removed: 0, net: 0 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2025-09', '国有行': { added: 0, removed: 1, net: -1 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2025-10', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2025-11', '国有行': { added: 0, removed: 1, net: -1 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 2, removed: 0, net: 2 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2025-12', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 1, net: -1 } },
+                            { month: '2026-01', '国有行': { added: 0, removed: 1, net: -1 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2026-02', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 0, removed: 1, net: -1 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2026-03', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2026-04', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 0, removed: 0, net: 0 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2026-05', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 2, removed: 0, net: 2 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2026-06', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 0, removed: 0, net: 0 } }
+                        ]
+                    },
+                    zoneCoverage: {
+                        totalZones: 1,
+                        coveredZones: 1,
+                        uncoveredZones: 0,
+                        coverageRate: 100.0,
+                        trend: [
+                            { month: '2025-07', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-08', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-09', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-10', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-11', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-12', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-01', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-02', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-03', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-04', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-05', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-06', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 }
+                        ],
+                        zones: [
+                            { name: '经济技术开发区', type: '开发区', subType: '国家级经济技术开发区', status: '已覆盖', ourBranches: 3, selfOperatedRatio: 67, competitorBranches: 8, coverageRate: 75.0 }
+                        ]
+                    },
+                    ourBranches: 18,
+                    keyZones: ['CBD商务区', '经济技术开发区']
+                },
+                { 
+                    id: 'AD-003', 
+                    name: '西城区', 
+                    code: '110102',
+                    x: 30, y: 48, w: 12, h: 14,
+                    area: 50.7,
+                    perimeter: 42.8,
+                    landTypes: [
+                        { type: '耕地', area: 0.5, color: '#22c55e' },
+                        { type: '水体', area: 3.2, color: '#3b82f6' },
+                        { type: '林地', area: 8.5, color: '#10b981' },
+                        { type: '湿地', area: 0.8, color: '#06b6d4' },
+                        { type: '人造地表', area: 37.7, color: '#f59e0b' }
+                    ],
+                    business: {
+                        sme: 8200,
+                        retail: 2100,
+                        transport: 28,
+                        commercial: 95
+                    },
+                    population: {
+                        resident: 1180000,
+                        work: 950000,
+                        maleRatio: { live: 49, work: 52 },
+                        ageDist: { live: [10, 30, 28, 20, 12], work: [8, 38, 32, 18, 4] },
+                        education: { live: [15, 38, 32], work: [8, 35, 38] },
+                        consumption: { live: '高', work: '高' },
+                        income: { live: 18500, work: 28000 },
+                        occupation: { live: [40, 22, 12, 26], work: [58, 18, 8, 16] },
+                        industry: { live: [22, 28, 15, 14], work: [35, 35, 12, 10] },
+                        lifeStage: { live: [18, 25, 30, 27], work: [28, 32, 30, 10] }
+                    },
+                    competitors: {
+                        total: 85,
+                        byType: { '国有行': 28, '股份行': 32, '城商行': 18, '农商行': 7 },
+                        changes: [
+                            { month: '2025-07', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 2, removed: 1, net: 1 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2025-08', '国有行': { added: 1, removed: 1, net: 0 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 0, removed: 1, net: -1 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2025-09', '国有行': { added: 1, removed: 1, net: 0 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 0, removed: 1, net: -1 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2025-10', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2025-11', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 2, removed: 0, net: 2 }, '农商行': { added: 0, removed: 1, net: -1 } },
+                            { month: '2025-12', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2026-01', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 0, removed: 1, net: -1 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2026-02', '国有行': { added: 0, removed: 1, net: -1 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2026-03', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 0, removed: 1, net: -1 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2026-04', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2026-05', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 2, removed: 1, net: 1 }, '农商行': { added: 0, removed: 1, net: -1 } },
+                            { month: '2026-06', '国有行': { added: 0, removed: 1, net: -1 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 1, removed: 0, net: 1 } }
+                        ]
+                    },
+                    zoneCoverage: {
+                        totalZones: 1,
+                        coveredZones: 1,
+                        uncoveredZones: 0,
+                        coverageRate: 100.0,
+                        trend: [
+                            { month: '2025-07', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-08', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-09', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-10', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-11', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-12', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-01', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-02', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-03', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-04', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-05', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-06', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 }
+                        ],
+                        zones: [
+                            { name: '金融街核心区', type: '开发区', subType: '省级经济开发区', status: '已覆盖', ourBranches: 2, selfOperatedRatio: 50, competitorBranches: 6, coverageRate: 66.7 }
+                        ]
+                    },
+                    ourBranches: 8,
+                    keyZones: ['金融街核心区']
+                },
+                { 
+                    id: 'AD-004', 
+                    name: '通州区', 
+                    code: '110112',
+                    x: 75, y: 50, w: 18, h: 20,
+                    area: 906.0,
+                    perimeter: 185.6,
+                    landTypes: [
+                        { type: '耕地', area: 285.6, color: '#22c55e' },
+                        { type: '水体', area: 68.4, color: '#3b82f6' },
+                        { type: '林地', area: 125.8, color: '#10b981' },
+                        { type: '湿地', area: 35.2, color: '#06b6d4' },
+                        { type: '人造地表', area: 391.0, color: '#f59e0b' }
+                    ],
+                    business: {
+                        sme: 6800,
+                        retail: 2800,
+                        transport: 32,
+                        commercial: 68
+                    },
+                    population: {
+                        resident: 1840000,
+                        work: 1200000,
+                        maleRatio: { live: 51, work: 54 },
+                        ageDist: { live: [18, 32, 26, 16, 8], work: [12, 38, 30, 15, 5] },
+                        education: { live: [28, 38, 18], work: [18, 42, 22] },
+                        consumption: { live: '中', work: '中' },
+                        income: { live: 9800, work: 14500 },
+                        occupation: { live: [25, 28, 22, 25], work: [42, 22, 18, 18] },
+                        industry: { live: [18, 12, 16, 15], work: [28, 18, 14, 12] },
+                        lifeStage: { live: [28, 32, 28, 12], work: [38, 32, 25, 5] }
+                    },
+                    competitors: {
+                        total: 68,
+                        byType: { '国有行': 22, '股份行': 18, '城商行': 20, '农商行': 8 },
+                        changes: [
+                            { month: '2025-07', '国有行': { added: 0, removed: 1, net: -1 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2025-08', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 2, removed: 1, net: 1 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2025-09', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2025-10', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 0, removed: 0, net: 0 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2025-11', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 2, removed: 0, net: 2 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2025-12', '国有行': { added: 0, removed: 1, net: -1 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 0, removed: 1, net: -1 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2026-01', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 1, net: -1 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2026-02', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 2, removed: 0, net: 2 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2026-03', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 0, removed: 1, net: -1 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2026-04', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2026-05', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2026-06', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 0, removed: 1, net: -1 }, '农商行': { added: 0, removed: 1, net: -1 } }
+                        ]
+                    },
+                    zoneCoverage: {
+                        totalZones: 1,
+                        coveredZones: 1,
+                        uncoveredZones: 0,
+                        coverageRate: 100.0,
+                        trend: [
+                            { month: '2025-07', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-08', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-09', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-10', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-11', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-12', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-01', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-02', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-03', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-04', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-05', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-06', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 }
+                        ],
+                        zones: [
+                            { name: '通州运河商务区', type: '开发区', subType: '省级经济开发区', status: '已覆盖', ourBranches: 1, selfOperatedRatio: 100, competitorBranches: 2, coverageRate: 50.0 }
+                        ]
+                    },
+                    ourBranches: 5,
+                    keyZones: ['通州运河商务区']
+                },
+                { 
+                    id: 'AD-005', 
+                    name: '大兴区', 
+                    code: '110115',
+                    x: 68, y: 72, w: 20, h: 18,
+                    area: 1036.0,
+                    perimeter: 198.4,
+                    landTypes: [
+                        { type: '耕地', area: 385.2, color: '#22c55e' },
+                        { type: '水体', area: 45.8, color: '#3b82f6' },
+                        { type: '林地', area: 168.5, color: '#10b981' },
+                        { type: '湿地', area: 28.6, color: '#06b6d4' },
+                        { type: '人造地表', area: 407.9, color: '#f59e0b' }
+                    ],
+                    business: {
+                        sme: 5200,
+                        retail: 1850,
+                        transport: 25,
+                        commercial: 45
+                    },
+                    population: {
+                        resident: 1990000,
+                        work: 850000,
+                        maleRatio: { live: 52, work: 56 },
+                        ageDist: { live: [20, 30, 25, 15, 10], work: [14, 42, 28, 12, 4] },
+                        education: { live: [32, 35, 15], work: [22, 40, 20] },
+                        consumption: { live: '中', work: '中' },
+                        income: { live: 8500, work: 12800 },
+                        occupation: { live: [22, 30, 25, 23], work: [38, 25, 20, 17] },
+                        industry: { live: [15, 10, 18, 16], work: [25, 15, 18, 14] },
+                        lifeStage: { live: [30, 28, 28, 14], work: [42, 28, 25, 5] }
+                    },
+                    competitors: {
+                        total: 52,
+                        byType: { '国有行': 18, '股份行': 12, '城商行': 15, '农商行': 7 },
+                        changes: [
+                            { month: '2025-07', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2025-08', '国有行': { added: 0, removed: 1, net: -1 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 0, removed: 1, net: -1 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2025-09', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2025-10', '国有行': { added: 0, removed: 1, net: -1 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 1, net: -1 } },
+                            { month: '2025-11', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 0, removed: 0, net: 0 } },
+                            { month: '2025-12', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 0, removed: 1, net: -1 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2026-01', '国有行': { added: 0, removed: 1, net: -1 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2026-02', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 0, net: 1 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 1, net: -1 } },
+                            { month: '2026-03', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2026-04', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 0, removed: 0, net: 0 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2026-05', '国有行': { added: 0, removed: 0, net: 0 }, '股份行': { added: 0, removed: 0, net: 0 }, '城商行': { added: 1, removed: 1, net: 0 }, '农商行': { added: 0, removed: 1, net: -1 } },
+                            { month: '2026-06', '国有行': { added: 1, removed: 0, net: 1 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 1, removed: 0, net: 1 }, '农商行': { added: 0, removed: 0, net: 0 } }
+                        ]
+                    },
+                    zoneCoverage: {
+                        totalZones: 1,
+                        coveredZones: 1,
+                        uncoveredZones: 0,
+                        coverageRate: 100.0,
+                        trend: [
+                            { month: '2025-07', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-08', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-09', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-10', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-11', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2025-12', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-01', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-02', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-03', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-04', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-05', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 },
+                            { month: '2026-06', covered: 1, uncovered: 0, coverageRate: 100.0, added: 0, removed: 0 }
+                        ],
+                        zones: [
+                            { name: '经济技术开发区', type: '开发区', subType: '国家级经济技术开发区', status: '已覆盖', ourBranches: 3, selfOperatedRatio: 67, competitorBranches: 8, coverageRate: 75.0 }
+                        ]
+                    },
+                    ourBranches: 4,
+                    keyZones: ['经济技术开发区']
+                }
+            ],
+
+                        grids: Array.from({length: 20}, (_, i) => ({
                 id: `G-${String(i+1).padStart(3, '0')}`,
                 x: 10 + Math.random() * 80,
                 y: 10 + Math.random() * 80,
                 score: Math.floor(70 + Math.random() * 25),
                 type: ['同业', '商户', '房价', '人口'][Math.floor(Math.random() * 4)],
                 rank: i < 10 ? i + 1 : null
-            }))
+            })),
+
+            // 网点台账导出 - 省/市/区级联数据
+            zoneRegions: [
+                { name: '北京市', cities: [
+                    { name: '北京市', districts: ['东城区','西城区','海淀区','朝阳区','丰台区','石景山区','通州区','昌平区','大兴区','顺义区'] }
+                ]},
+                { name: '上海市', cities: [
+                    { name: '上海市', districts: ['黄浦区','徐汇区','长宁区','静安区','普陀区','虹口区','杨浦区','浦东新区','闵行区','宝山区'] }
+                ]},
+                { name: '广东省', cities: [
+                    { name: '广州市', districts: ['越秀区','海珠区','荔湾区','天河区','白云区','黄埔区','番禺区','花都区'] },
+                    { name: '深圳市', districts: ['罗湖区','福田区','南山区','宝安区','龙岗区','盐田区','龙华区','坪山区'] },
+                    { name: '佛山市', districts: ['禅城区','南海区','顺德区','三水区','高明区'] }
+                ]},
+                { name: '江苏省', cities: [
+                    { name: '南京市', districts: ['玄武区','秦淮区','建邺区','鼓楼区','栖霞区','雨花台区','江宁区','浦口区'] },
+                    { name: '苏州市', districts: ['姑苏区','虎丘区','吴中区','相城区','工业园区','吴江区'] },
+                    { name: '无锡市', districts: ['锡山区','惠山区','滨湖区','梁溪区','新吴区'] }
+                ]},
+                { name: '浙江省', cities: [
+                    { name: '杭州市', districts: ['上城区','拱墅区','西湖区','滨江区','萧山区','余杭区','临平区','钱塘区'] },
+                    { name: '宁波市', districts: ['海曙区','江北区','北仑区','镇海区','鄞州区','奉化区'] }
+                ]},
+                { name: '山东省', cities: [
+                    { name: '济南市', districts: ['历下区','市中区','槐荫区','天桥区','历城区','长清区','章丘区'] },
+                    { name: '青岛市', districts: ['市南区','市北区','黄岛区','崂山区','李沧区','城阳区'] }
+                ]}
+            ]
         };
 
         // ============ 状态管理 ============
@@ -1095,7 +1879,8 @@
                     !e.target.closest('.grid-cell') && !e.target.closest('.left-panel') &&
                     !e.target.closest('.sidebar') && !e.target.closest('.legend-card') &&
                     !e.target.closest('.grid-detail-panel') && !e.target.closest('.info-popup') &&
-                    !e.target.closest('.compare-panel') && !e.target.closest('.compare-report-panel')) {
+                    !e.target.closest('.compare-panel') && !e.target.closest('.compare-report-panel') &&
+                    !e.target.closest('.admin-detail-panel')) {
                     closeSidePanel();
                     closeLeftPanel();
                     closeGridDetail();
@@ -1113,6 +1898,7 @@
         function renderMap() {
             renderGrids();
             renderZones();
+            renderAdminDivisions();
             renderBranches();
             renderRecommends();
             renderCompetitors();
@@ -1158,7 +1944,7 @@
 
                 cell.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    showGridPopup(grid, cell);
+                    showGridDetail(grid.id);
                 });
                 layer.appendChild(cell);
             });
@@ -1378,6 +2164,7 @@
                 case 'compare':
                     showCompareHistory();
                     break;
+                
             }
         }
 
@@ -1392,65 +2179,6 @@
         // ============ 栅格弹窗 ============
         let currentPopupGrid = null;
 
-        function showGridPopup(grid, element) {
-            currentPopupGrid = grid;
-            const popup = document.getElementById('infoPopup');
-            const content = document.getElementById('popupContent');
-
-            content.innerHTML = `
-                <div class="flex items-center justify-between mb-3">
-                    <h3 class="font-bold text-white text-sm">栅格 ${grid.id}</h3>
-                    <span class="tag ${grid.score > 85 ? 'tag-green' : 'tag-blue'}">${grid.score}分</span>
-                </div>
-                <div class="space-y-1.5 text-xs">
-                    <div class="flex justify-between"><span class="text-slate-500">排名</span><span class="text-slate-300">第${grid.rank}位</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">推荐业态1</span><span class="text-slate-300">${['综合支行','社区支行','科技支行','财富中心'][Math.floor(Math.random()*4)]}</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">推荐业态2</span><span class="text-slate-300">${['智能网点','轻型网点','旗舰网点','小微支行'][Math.floor(Math.random()*4)]}</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">地域属性</span><span class="text-slate-300">${Math.random() > 0.5 ? '城市' : '县域'}</span></div>
-                </div>
-                <div class="mt-3 flex gap-2">
-                    <button id="btnGridDetail" class="btn btn-primary text-xs flex-1 py-1.5">详情</button>
-                    <button id="btnGridCompare" class="btn btn-secondary text-xs flex-1 py-1.5">对比</button>
-                </div>
-            `;
-
-            popup.style.left = element.offsetLeft + element.offsetWidth + 10 + 'px';
-            popup.style.top = element.offsetTop + 'px';
-            popup.classList.add('show');
-
-            // 绑定按钮事件
-            setTimeout(() => {
-                const detailBtn = document.getElementById('btnGridDetail');
-                const compareBtn = document.getElementById('btnGridCompare');
-
-                if (detailBtn) {
-                    detailBtn.onclick = function(e) {
-                        e.stopPropagation();
-                        popup.classList.remove('show');
-                        if (currentPopupGrid) showGridDetail(currentPopupGrid.id);
-                    };
-                }
-                if (compareBtn) {
-                    compareBtn.onclick = function(e) {
-                        e.stopPropagation();
-                        popup.classList.remove('show');
-                        if (currentPopupGrid) openComparePanel(currentPopupGrid.id);
-                    };
-                }
-            }, 0);
-
-            setTimeout(() => {
-                document.addEventListener('click', function closePopup(e) {
-                    if (!popup.contains(e.target) && !element.contains(e.target)) {
-                        popup.classList.remove('show');
-                        currentPopupGrid = null;
-                        document.removeEventListener('click', closePopup);
-                    }
-                });
-            }, 100);
-        }
-
-        // ============ 网点详情 ============
         function showBranchDetail(branch) {
             selectedBranch = branch;
             const panel = document.getElementById('sidePanel');
@@ -2141,9 +2869,157 @@
                         </button>
                     </div>
                 </div>
+
+                <!-- 我行网点变更明细 -->
+                <div class="card">
+                    <div class="card-title flex justify-between">
+                        <span><i class="fas fa-university text-blue-400 text-xs"></i> 我行网点变更明细</span>
+                        <span class="text-xs text-slate-500">最近一年</span>
+                    </div>
+
+                    <!-- 变更趋势统计 -->
+                    <div class="grid grid-cols-3 gap-2 mb-4">
+                        <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                            <div class="text-lg font-bold text-white">${zone.branchChanges.total}</div>
+                            <div class="text-xs text-slate-500">当前网点数</div>
+                        </div>
+                        <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                            <div class="text-lg font-bold text-green-400">${zone.branchChanges.trend.reduce((a,b)=>a+b.added,0)}</div>
+                            <div class="text-xs text-slate-500">新增</div>
+                        </div>
+                        <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                            <div class="text-lg font-bold text-red-400">${zone.branchChanges.trend.reduce((a,b)=>a+b.removed,0)}</div>
+                            <div class="text-xs text-slate-500">撤并</div>
+                        </div>
+                    </div>
+
+                    <div class="trend-chart-container mb-4">
+                        <canvas id="zoneBranchChangeChart"></canvas>
+                    </div>
+
+                    <!-- 当前网点列表 -->
+                    ${zone.branchChanges.currentBranches.length > 0 ? `
+                    <div class="mb-4">
+                        <div class="text-xs text-slate-500 mb-2">当前运营网点</div>
+                        <div class="space-y-2">
+                            ${zone.branchChanges.currentBranches.map(b => `
+                                <div class="p-3 bg-slate-800/40 rounded-xl">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm font-medium text-white">${b.name}</span>
+                                        <span class="tag ${b.attr === '自营' ? 'tag-blue' : 'tag-amber'} text-xs">${b.attr}</span>
+                                    </div>
+                                    <div class="text-xs text-slate-500 mb-1">编号: ${b.code} | ${b.type}</div>
+                                    <div class="text-xs text-slate-400 mb-1">${b.address}</div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <span class="text-green-400"><i class="fas fa-check-circle mr-1" style="font-size:9px"></i>${b.status}</span>
+                                        <span class="text-slate-700">|</span>
+                                        <span class="text-slate-600">开业: ${b.openDate}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    ` : `
+                    <div class="mb-4 p-4 bg-red-500/5 rounded-xl border border-red-500/10 text-center">
+                        <i class="fas fa-exclamation-circle text-red-400 mb-2 block" style="font-size:20px"></i>
+                        <div class="text-sm text-red-400 font-medium">当前区域无我行网点</div>
+                        <div class="text-xs text-slate-500 mt-1">该区域处于未覆盖状态</div>
+                    </div>
+                    `}
+
+                    <!-- 变更历史明细 -->
+                    <div>
+                        <div class="text-xs text-slate-500 mb-2">变更历史明细</div>
+                        <div class="space-y-2">
+                            ${zone.branchChanges.trend.filter(t => t.added > 0 || t.removed > 0).length === 0 ? `
+                                <div class="text-center py-3 text-xs text-slate-600">
+                                    <i class="fas fa-info-circle mr-1"></i> 最近一年无网点变更记录
+                                </div>
+                            ` : zone.branchChanges.trend.filter(t => t.added > 0 || t.removed > 0).map(t => `
+                                <div class="p-3 bg-slate-800/40 rounded-xl">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-medium text-slate-300">${t.month}</span>
+                                        <div class="flex items-center gap-2">
+                                            ${t.added > 0 ? `<span class="tag tag-green text-xs">+${t.added} 新增</span>` : ''}
+                                            ${t.removed > 0 ? `<span class="tag tag-red text-xs">-${t.removed} 撤并</span>` : ''}
+                                        </div>
+                                    </div>
+                                    ${t.addedDetail ? `
+                                        <div class="space-y-1">
+                                            ${t.addedDetail.map(d => `
+                                                <div class="flex items-start gap-2 text-xs">
+                                                    <i class="fas fa-plus-circle text-green-400 mt-0.5"></i>
+                                                    <div>
+                                                        <span class="text-white font-medium">${d.name}</span>
+                                                        <span class="text-slate-500">(${d.code})</span>
+                                                        <div class="text-slate-500 mt-0.5">${d.address}</div>
+                                                        <div class="text-slate-600 mt-0.5">${d.type} | ${d.attr} | 开业: ${d.openDate}</div>
+                                                    </div>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
+                                    ${t.removedDetail ? `
+                                        <div class="space-y-1 mt-2 pt-2 border-t border-slate-700/30">
+                                            ${t.removedDetail.map(d => `
+                                                <div class="flex items-start gap-2 text-xs">
+                                                    <i class="fas fa-minus-circle text-red-400 mt-0.5"></i>
+                                                    <div>
+                                                        <span class="text-white font-medium">${d.name}</span>
+                                                        <span class="text-slate-500">(${d.code})</span>
+                                                        <div class="text-slate-500 mt-0.5">${d.address}</div>
+                                                        <div class="text-slate-600 mt-0.5">${d.type} | ${d.attr} | 关闭: ${d.closeDate} | 原因: ${d.reason}</div>
+                                                    </div>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
             `;
 
             panel.classList.add('open');
+
+            // 初始化五大行占比饼图
+            setTimeout(() => {
+                const pieCanvas = document.getElementById('bigFivePieChart');
+                if (pieCanvas && zoneBigFive.length > 0) {
+                    const stats = getBigFiveStats(zoneBigFive);
+                    new Chart(pieCanvas, {
+                        type: 'doughnut',
+                        data: {
+                            labels: stats.map(s => s.bank),
+                            datasets: [{
+                                data: stats.map(s => s.count),
+                                backgroundColor: stats.map(s => s.color),
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            cutout: '55%',
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const s = stats[context.dataIndex];
+                                            return s.bank + ': ' + s.count + '家 (' + s.percent + '%)';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                // 初始化网点变更趋势图
+                initZoneBranchChangeChart(zone);
+            }, 100);
         }
 
         function showCompetitorDetail(comp) {
@@ -2245,12 +3121,52 @@
             `;
 
             panel.classList.add('open');
+
+            // 初始化五大行占比饼图
+            setTimeout(() => {
+                const pieCanvas = document.getElementById('bigFivePieChart');
+                if (pieCanvas && zoneBigFive.length > 0) {
+                    const stats = getBigFiveStats(zoneBigFive);
+                    new Chart(pieCanvas, {
+                        type: 'doughnut',
+                        data: {
+                            labels: stats.map(s => s.bank),
+                            datasets: [{
+                                data: stats.map(s => s.count),
+                                backgroundColor: stats.map(s => s.color),
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            cutout: '55%',
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const s = stats[context.dataIndex];
+                                            return s.bank + ': ' + s.count + '家 (' + s.percent + '%)';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }, 100);
         }
 
         function showZoneDetail(zone) {
             selectedZone = zone;
             const panel = document.getElementById('sidePanel');
             const content = document.getElementById('sidePanelContent');
+
+            // 根据区域ID获取关联的我行网点和五大行同业网点
+            const zoneBranches = getZoneBranches(zone.id);
+            const zoneBigFive = getZoneBigFive(zone.id);
 
             content.innerHTML = `
                 <div class="animate-fade-in">
@@ -2297,7 +3213,167 @@
                             </div>
                             <div class="text-center p-3 bg-slate-800/40 rounded-xl">
                                 <div class="stat-number text-red-400">${zone.competitorBranches}</div>
-                                <div class="stat-label">竞品网点数量</div>
+                                <div class="stat-label">同业网点数量</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 重点同业网点明细（五大行） -->
+                    <div class="card">
+                        <div class="card-title flex justify-between">
+                            <span><i class="fas fa-building text-red-400 text-xs"></i> 重点同业网点明细</span>
+                            <span class="text-xs text-slate-500">中农工建交五大行</span>
+                        </div>
+
+                        <!-- 五大行占比统计 -->
+                        ${zoneBigFive.length > 0 ? `
+                        <div class="mb-4 p-3 bg-slate-800/30 rounded-xl border border-slate-700/30">
+                            <div class="text-xs text-slate-500 mb-2">五大行占比</div>
+                            <div class="flex items-center gap-3">
+                                <div style="width: 80px; height: 80px; position: relative; flex-shrink: 0;">
+                                    <canvas id="bigFivePieChart" style="width: 80px; height: 80px;"></canvas>
+                                </div>
+                                <div class="flex-1 space-y-1.5">
+                                    ${getBigFiveStats(zoneBigFive).map(s => `
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background: ${s.color}"></div>
+                                            <span class="text-xs text-slate-400 flex-1">${s.bank}</span>
+                                            <span class="text-xs font-bold text-white">${s.count}家</span>
+                                            <span class="text-xs text-slate-600">${s.percent}%</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        <div class="space-y-2">
+                            ${zoneBigFive.length === 0 ? `
+                                <div class="text-center py-4 text-xs text-slate-500">
+                                    <i class="fas fa-inbox mb-1 block" style="font-size:16px"></i>
+                                    该区域暂无五大行网点
+                                </div>
+                            ` : zoneBigFive.map(c => `
+                                <div class="p-3 bg-slate-800/40 rounded-xl">
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <div class="flex items-center gap-2">
+                                            <span class="tag text-xs" style="background: ${c.bank === '工商银行' ? 'rgba(239,68,68,0.15)' : c.bank === '农业银行' ? 'rgba(16,185,129,0.15)' : c.bank === '中国银行' ? 'rgba(59,130,246,0.15)' : c.bank === '建设银行' ? 'rgba(245,158,11,0.15)' : 'rgba(139,92,246,0.15)'}; color: ${c.bank === '工商银行' ? '#f87171' : c.bank === '农业银行' ? '#34d399' : c.bank === '中国银行' ? '#60a5fa' : c.bank === '建设银行' ? '#fbbf24' : '#c084fc'}; border: 1px solid ${c.bank === '工商银行' ? 'rgba(239,68,68,0.3)' : c.bank === '农业银行' ? 'rgba(16,185,129,0.3)' : c.bank === '中国银行' ? 'rgba(59,130,246,0.3)' : c.bank === '建设银行' ? 'rgba(245,158,11,0.3)' : 'rgba(139,92,246,0.3)'};">${c.bank}</span>
+                                            <span class="text-sm font-medium text-white">${c.name}</span>
+                                        </div>
+                                        <span class="tag ${c.status === '持有' ? 'tag-green' : 'tag-red'} text-xs">${c.status}</span>
+                                    </div>
+                                    <div class="text-xs text-slate-400">${c.address}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- 我行网点明细 -->
+                    <div class="card">
+                        <div class="card-title flex justify-between">
+                            <span><i class="fas fa-university text-blue-400 text-xs"></i> 我行网点明细</span>
+                            <span class="text-xs text-slate-500">最近一年</span>
+                        </div>
+
+                        <!-- 变更趋势统计 -->
+                        <div class="grid grid-cols-3 gap-2 mb-4">
+                            <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                <div class="text-lg font-bold text-white">${zone.branchChanges.total}</div>
+                                <div class="text-xs text-slate-500">当前网点数</div>
+                            </div>
+                            <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                <div class="text-lg font-bold text-green-400">${zone.branchChanges.trend.reduce((a,b)=>a+b.added,0)}</div>
+                                <div class="text-xs text-slate-500">新增</div>
+                            </div>
+                            <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                <div class="text-lg font-bold text-red-400">${zone.branchChanges.trend.reduce((a,b)=>a+b.removed,0)}</div>
+                                <div class="text-xs text-slate-500">撤并</div>
+                            </div>
+                        </div>
+
+                        <div class="trend-chart-container mb-4">
+                            <canvas id="zoneBranchChangeChart"></canvas>
+                        </div>
+
+                        <!-- 当前网点列表 -->
+                        ${zone.branchChanges.currentBranches.length > 0 ? `
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">当前运营网点</div>
+                            <div class="space-y-2">
+                                ${zone.branchChanges.currentBranches.map(b => `
+                                    <div class="p-3 bg-slate-800/40 rounded-xl">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="text-sm font-medium text-white">${b.name}</span>
+                                            <span class="tag ${b.attr === '自营' ? 'tag-blue' : 'tag-amber'} text-xs">${b.attr}</span>
+                                        </div>
+                                        <div class="text-xs text-slate-500 mb-1">编号: ${b.code} | ${b.type}</div>
+                                        <div class="text-xs text-slate-400 mb-1">${b.address}</div>
+                                        <div class="flex items-center gap-2 text-xs">
+                                            <span class="text-green-400"><i class="fas fa-check-circle mr-1" style="font-size:9px"></i>${b.status}</span>
+                                            <span class="text-slate-700">|</span>
+                                            <span class="text-slate-600">开业: ${b.openDate}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        ` : `
+                        <div class="mb-4 p-4 bg-red-500/5 rounded-xl border border-red-500/10 text-center">
+                            <i class="fas fa-exclamation-circle text-red-400 mb-2 block" style="font-size:20px"></i>
+                            <div class="text-sm text-red-400 font-medium">当前区域无我行网点</div>
+                            <div class="text-xs text-slate-500 mt-1">该区域处于未覆盖状态</div>
+                        </div>
+                        `}
+
+                        <!-- 变更历史明细 -->
+                        <div>
+                            <div class="text-xs text-slate-500 mb-2">变更历史明细</div>
+                            <div class="space-y-2">
+                                ${zone.branchChanges.trend.filter(t => t.added > 0 || t.removed > 0).length === 0 ? `
+                                    <div class="text-center py-3 text-xs text-slate-600">
+                                        <i class="fas fa-info-circle mr-1"></i> 最近一年无网点变更记录
+                                    </div>
+                                ` : zone.branchChanges.trend.filter(t => t.added > 0 || t.removed > 0).map(t => `
+                                    <div class="p-3 bg-slate-800/40 rounded-xl">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="text-xs font-medium text-slate-300">${t.month}</span>
+                                            <div class="flex items-center gap-2">
+                                                ${t.added > 0 ? `<span class="tag tag-green text-xs">+${t.added} 新增</span>` : ''}
+                                                ${t.removed > 0 ? `<span class="tag tag-red text-xs">-${t.removed} 撤并</span>` : ''}
+                                            </div>
+                                        </div>
+                                        ${t.addedDetail ? `
+                                            <div class="space-y-1">
+                                                ${t.addedDetail.map(d => `
+                                                    <div class="flex items-start gap-2 text-xs">
+                                                        <i class="fas fa-plus-circle text-green-400 mt-0.5"></i>
+                                                        <div>
+                                                            <span class="text-white font-medium">${d.name}</span>
+                                                            <span class="text-slate-500">(${d.code})</span>
+                                                            <div class="text-slate-500 mt-0.5">${d.address}</div>
+                                                            <div class="text-slate-600 mt-0.5">${d.type} | ${d.attr} | 开业: ${d.openDate}</div>
+                                                        </div>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        ` : ''}
+                                        ${t.removedDetail ? `
+                                            <div class="space-y-1 mt-2 pt-2 border-t border-slate-700/30">
+                                                ${t.removedDetail.map(d => `
+                                                    <div class="flex items-start gap-2 text-xs">
+                                                        <i class="fas fa-minus-circle text-red-400 mt-0.5"></i>
+                                                        <div>
+                                                            <span class="text-white font-medium">${d.name}</span>
+                                                            <span class="text-slate-500">(${d.code})</span>
+                                                            <div class="text-slate-500 mt-0.5">${d.address}</div>
+                                                            <div class="text-slate-600 mt-0.5">${d.type} | ${d.attr} | 关闭: ${d.closeDate} | 原因: ${d.reason}</div>
+                                                        </div>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                `).join('')}
                             </div>
                         </div>
                     </div>
@@ -2314,10 +3390,120 @@
             `;
 
             panel.classList.add('open');
+
+            // 初始化五大行占比饼图
+            setTimeout(() => {
+                const pieCanvas = document.getElementById('bigFivePieChart');
+                if (pieCanvas && zoneBigFive.length > 0) {
+                    const stats = getBigFiveStats(zoneBigFive);
+                    new Chart(pieCanvas, {
+                        type: 'doughnut',
+                        data: {
+                            labels: stats.map(s => s.bank),
+                            datasets: [{
+                                data: stats.map(s => s.count),
+                                backgroundColor: stats.map(s => s.color),
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            cutout: '55%',
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const s = stats[context.dataIndex];
+                                            return s.bank + ': ' + s.count + '家 (' + s.percent + '%)';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                // 初始化网点变更趋势图
+                initZoneBranchChangeChart(zone);
+            }, 100);
+        }
+
+        // 根据区域ID获取该区域内的我行网点
+        function getZoneBranches(zoneId) {
+            const zoneBranchMap = {
+                1: [  // 经济技术开发区 - 亦庄
+                    { name: '亦庄支行', code: 'BR-0005', address: '大兴区亦庄经济技术开发区科创街', attr: '自营' }
+                ],
+                2: [  // 强县富镇-XX镇
+                    { name: 'XX镇支行', code: 'BR-0012', address: 'XX县XX镇中心大街88号', attr: '自营' }
+                ],
+                3: [], // 未来科学城 - 未覆盖
+                4: [  // 中关村软件园
+                    { name: '中关村支行', code: 'BR-0001', address: '海淀区中关村大街1号', attr: '自营' },
+                    { name: '软件园社区支行', code: 'BR-0015', address: '海淀区软件园西路6号', attr: '代理' }
+                ],
+                5: []  // 强县富镇-YY镇 - 未覆盖
+            };
+            return zoneBranchMap[zoneId] || [];
+        }
+
+        // 根据区域ID获取该区域内的五大行同业网点（中农工建交）
+        function getZoneBigFive(zoneId) {
+            const zoneBigFiveMap = {
+                1: [  // 经济技术开发区 - 亦庄
+                    { name: '工商银行亦庄支行', bank: '工商银行', address: '大兴区亦庄经济技术开发区荣华南路15号', status: '持有' },
+                    { name: '建设银行开发区支行', bank: '建设银行', address: '大兴区亦庄天宝园六里', status: '持有' },
+                    { name: '中国银行亦庄分行', bank: '中国银行', address: '大兴区亦庄林肯公园商务区', status: '持有' }
+                ],
+                2: [  // 强县富镇-XX镇
+                    { name: '农业银行XX镇支行', bank: '农业银行', address: 'XX县XX镇农业路3号', status: '持有' },
+                    { name: '邮储银行XX镇营业所', bank: '邮储银行', address: 'XX县XX镇邮政街12号', status: '持有' }
+                ],
+                3: [  // 未来科学城
+                    { name: '中国银行未来科学城支行', bank: '中国银行', address: '昌平区未来科学城北区', status: '持有' }
+                ],
+                4: [  // 中关村软件园
+                    { name: '工商银行中关村支行', bank: '工商银行', address: '海淀区中关村大街15号中关村广场购物中心B2', status: '持有' },
+                    { name: '建设银行海淀支行', bank: '建设银行', address: '海淀区复兴路17号国海广场D座', status: '持有' },
+                    { name: '中国银行北京分行营业部', bank: '中国银行', address: '东城区朝阳门内大街2号凯恒中心', status: '持有' },
+                    { name: '农业银行海淀支行', bank: '农业银行', address: '海淀区复兴路17号国海广场D座', status: '持有' },
+                    { name: '邮储银行中关村营业所', bank: '邮储银行', address: '海淀区中关村大街28号', status: '持有' }
+                ],
+                5: [  // 强县富镇-YY镇
+                    { name: '工商银行YY镇支行', bank: '工商银行', address: 'YY县YY镇工商路8号', status: '持有' },
+                    { name: '建设银行YY镇分理处', bank: '建设银行', address: 'YY县YY镇建设大街22号', status: '退出' },
+                    { name: '农业银行YY镇支行', bank: '农业银行', address: 'YY县YY镇农业路5号', status: '持有' }
+                ]
+            };
+            return zoneBigFiveMap[zoneId] || [];
+        }
+
+        // 计算五大行占比统计
+        function getBigFiveStats(zoneBigFive) {
+            const bankColors = {
+                '工商银行': '#ef4444',
+                '农业银行': '#10b981',
+                '中国银行': '#3b82f6',
+                '建设银行': '#f59e0b',
+                '邮储银行': '#8b5cf6'
+            };
+            const stats = {};
+            zoneBigFive.forEach(c => {
+                if (!stats[c.bank]) stats[c.bank] = { count: 0, color: bankColors[c.bank] || '#64748b' };
+                stats[c.bank].count++;
+            });
+            const total = zoneBigFive.length;
+            return Object.entries(stats).map(([bank, data]) => ({
+                bank, count: data.count, color: data.color,
+                percent: total > 0 ? ((data.count / total) * 100).toFixed(1) : 0
+            })).sort((a, b) => b.count - a.count);
         }
 
         function closeSidePanel() {
             document.getElementById('sidePanel').classList.remove('open');
+            document.getElementById('adminDetailPanel').classList.remove('open');
             Object.values(chartInstances).forEach(chart => chart.destroy());
             chartInstances = {};
         }
@@ -2346,8 +3532,9 @@
                             <div class="list-item" onclick="showBranchDetail(mockData.branches.find(b => b.id === ${branch.id}))">
                                 <div class="flex items-center justify-between mb-1.5">
                                     <span class="font-medium text-white text-sm">${branch.name}</span>
-                                    <span class="tag tag-blue text-xs">${branch.type}</span>
+                                    <span class="tag ${branch.branchCode && branch.branchCode.includes('AG') ? 'tag-amber' : 'tag-blue'} text-xs">${branch.branchCode && branch.branchCode.includes('AG') ? '代理' : '自营'}</span>
                                 </div>
+                                <div class="text-xs text-slate-500 mb-1">编号: ${branch.branchCode}</div>
                                 <div class="text-xs text-slate-500 mb-1.5">${branch.address}</div>
                                 <div class="flex items-center gap-2 text-xs">
                                     <span class="text-slate-600">评分</span>
@@ -2362,6 +3549,42 @@
             `;
 
             panel.classList.add('open');
+
+            // 初始化五大行占比饼图
+            setTimeout(() => {
+                const pieCanvas = document.getElementById('bigFivePieChart');
+                if (pieCanvas && zoneBigFive.length > 0) {
+                    const stats = getBigFiveStats(zoneBigFive);
+                    new Chart(pieCanvas, {
+                        type: 'doughnut',
+                        data: {
+                            labels: stats.map(s => s.bank),
+                            datasets: [{
+                                data: stats.map(s => s.count),
+                                backgroundColor: stats.map(s => s.color),
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            cutout: '55%',
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const s = stats[context.dataIndex];
+                                            return s.bank + ': ' + s.count + '家 (' + s.percent + '%)';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }, 100);
         }
 
         function showRecommendList() {
@@ -2393,8 +3616,6 @@
                                 <div class="flex items-center gap-2 text-xs">
                                     <span class="text-slate-600">排名</span>
                                     <span class="font-bold text-amber-400">#${idx + 1}</span>
-                                    <span class="text-slate-700">|</span>
-                                    <span class="text-slate-600">客流 ${rec.details.flow}</span>
                                 </div>
                             </div>
                         `).join('')}
@@ -2426,7 +3647,7 @@
                         </button>
                     </div>
 
-                    <div class="mb-4 flex gap-2">
+                    <div class="mb-3 flex gap-2">
                         <input type="text" class="search-input flex-1" placeholder="搜索区域...">
                         <select class="search-input w-24 text-xs" onchange="filterZones(this.value)">
                             <option value="all">全部</option>
@@ -2434,6 +3655,10 @@
                             <option value="强县富镇">强县富镇</option>
                         </select>
                     </div>
+
+                    <button onclick="openZoneExportModal()" class="btn btn-secondary w-full justify-center py-2.5 mb-4">
+                        <i class="fas fa-file-export mr-2" style="font-size:11px"></i> 导出网点台账
+                    </button>
 
                     <div class="mb-4 p-3 bg-slate-800/40 rounded-xl border border-slate-700/30">
                         <div class="grid grid-cols-3 gap-2 text-center">
@@ -2479,6 +3704,42 @@
             `;
 
             panel.classList.add('open');
+
+            // 初始化五大行占比饼图
+            setTimeout(() => {
+                const pieCanvas = document.getElementById('bigFivePieChart');
+                if (pieCanvas && zoneBigFive.length > 0) {
+                    const stats = getBigFiveStats(zoneBigFive);
+                    new Chart(pieCanvas, {
+                        type: 'doughnut',
+                        data: {
+                            labels: stats.map(s => s.bank),
+                            datasets: [{
+                                data: stats.map(s => s.count),
+                                backgroundColor: stats.map(s => s.color),
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            cutout: '55%',
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const s = stats[context.dataIndex];
+                                            return s.bank + ': ' + s.count + '家 (' + s.percent + '%)';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }, 100);
         }
 
         
@@ -2524,6 +3785,129 @@
             div.innerHTML = text;
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
+        }
+
+        // 重点区域覆盖趋势图
+        function initZoneCoverageTrendChart(admin) {
+            const ctx = document.getElementById('zoneCoverageTrendChart');
+            if (!ctx) return;
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: admin.zoneCoverage.trend.map(t => t.month),
+                    datasets: [
+                        {
+                            label: '已覆盖',
+                            data: admin.zoneCoverage.trend.map(t => t.covered),
+                            backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                            borderColor: '#10b981',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 3
+                        },
+                        {
+                            label: '未覆盖',
+                            data: admin.zoneCoverage.trend.map(t => t.uncovered),
+                            backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                            borderColor: '#ef4444',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { color: '#64748b', font: { size: 10 }, boxWidth: 10, padding: 10 }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(30, 41, 59, 0.3)' },
+                            ticks: { color: '#64748b', font: { size: 9 }, maxRotation: 45, minRotation: 45 }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(30, 41, 59, 0.3)' },
+                            ticks: { color: '#64748b', font: { size: 10 }, stepSize: 1 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 重点区域我行网点变更趋势图
+        function initZoneBranchChangeChart(zone) {
+            const ctx = document.getElementById('zoneBranchChangeChart');
+            if (!ctx) return;
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: zone.branchChanges.trend.map(t => t.month),
+                    datasets: [
+                        {
+                            label: '新增',
+                            data: zone.branchChanges.trend.map(t => t.added),
+                            backgroundColor: 'rgba(16, 185, 129, 0.7)',
+                            borderColor: '#10b981',
+                            borderWidth: 1,
+                            borderRadius: 3,
+                            barPercentage: 0.6
+                        },
+                        {
+                            label: '撤并',
+                            data: zone.branchChanges.trend.map(t => -t.removed),
+                            backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                            borderColor: '#ef4444',
+                            borderWidth: 1,
+                            borderRadius: 3,
+                            barPercentage: 0.6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { color: '#64748b', font: { size: 10 }, boxWidth: 10, padding: 10 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) label += ': ';
+                                    return label + Math.abs(context.parsed.y) + '家';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(30, 41, 59, 0.3)' },
+                            ticks: { color: '#64748b', font: { size: 9 }, maxRotation: 45, minRotation: 45 }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(30, 41, 59, 0.3)' },
+                            ticks: {
+                                color: '#64748b',
+                                font: { size: 10 },
+                                callback: function(value) { return Math.abs(value); }
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         // ============ 导出功能 ============
@@ -2730,6 +4114,158 @@
             document.getElementById(modalId).classList.remove('open');
         }
 
+        // ============ 网点台账导出 ============
+        let zoneExportState = { scope: 'province', province: '', city: '', district: '', format: 'excel' };
+
+        function openZoneExportModal() {
+            zoneExportState = { scope: 'province', province: '', city: '', district: '', format: 'excel' };
+            const content = document.getElementById('zoneExportModalContent');
+            content.innerHTML = `
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="text-lg font-bold text-white">导出网点台账</h2>
+                    <button onclick="closeModal('zoneExportModal')" class="text-slate-500 hover:text-white w-8 h-8 rounded-lg hover:bg-slate-800 flex items-center justify-center transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <p class="text-xs text-slate-400 mb-5">以重点区域为维度，导出区域内自营、代理网点明细及同业数量。<b class="text-amber-400">此操作不渲染地图。</b></p>
+
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-xs text-slate-500 mb-2 font-medium">选择导出范围</label>
+                        <div id="zoneExportScope" class="flex gap-2 mb-3">
+                            <button data-scope="national" onclick="setZoneScope('national')" class="flex-1 py-2 text-xs rounded-lg border border-slate-700 bg-slate-800/50 text-slate-300 hover:bg-slate-700 transition-colors">全国</button>
+                            <button data-scope="province" onclick="setZoneScope('province')" class="flex-1 py-2 text-xs rounded-lg border border-blue-500 bg-blue-500/15 text-blue-400">省级</button>
+                            <button data-scope="city" onclick="setZoneScope('city')" class="flex-1 py-2 text-xs rounded-lg border border-slate-700 bg-slate-800/50 text-slate-300 hover:bg-slate-700 transition-colors">市级</button>
+                            <button data-scope="district" onclick="setZoneScope('district')" class="flex-1 py-2 text-xs rounded-lg border border-slate-700 bg-slate-800/50 text-slate-300 hover:bg-slate-700 transition-colors">区县级</button>
+                        </div>
+                        <div id="zoneExportCascader" class="grid grid-cols-3 gap-2"></div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-slate-500 mb-2 font-medium">导出格式</label>
+                        <div class="flex gap-2">
+                            <label class="flex-1 cursor-pointer">
+                                <input type="radio" name="zoneExportFormat" value="excel" checked class="hidden peer" onchange="zoneExportState.format=this.value">
+                                <div class="py-2 text-center text-xs rounded-lg border border-slate-700 bg-slate-800/50 text-slate-300 peer-checked:border-blue-500 peer-checked:bg-blue-500/15 peer-checked:text-blue-400 transition-colors">
+                                    <i class="fas fa-file-excel mr-1"></i> Excel
+                                </div>
+                            </label>
+                            <label class="flex-1 cursor-pointer">
+                                <input type="radio" name="zoneExportFormat" value="csv" class="hidden peer" onchange="zoneExportState.format=this.value">
+                                <div class="py-2 text-center text-xs rounded-lg border border-slate-700 bg-slate-800/50 text-slate-300 peer-checked:border-blue-500 peer-checked:bg-blue-500/15 peer-checked:text-blue-400 transition-colors">
+                                    <i class="fas fa-file-csv mr-1"></i> CSV
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3 mt-7">
+                    <button onclick="closeModal('zoneExportModal')" class="btn btn-secondary px-5 py-2.5">取消</button>
+                    <button onclick="executeZoneExport()" class="btn btn-primary px-5 py-2.5">
+                        <i class="fas fa-download mr-1.5" style="font-size:11px"></i> 确认导出
+                    </button>
+                </div>
+            `;
+            renderZoneCascader();
+            document.getElementById('zoneExportModal').classList.add('open');
+        }
+
+        function setZoneScope(scope) {
+            zoneExportState.scope = scope;
+            zoneExportState.province = '';
+            zoneExportState.city = '';
+            zoneExportState.district = '';
+            document.querySelectorAll('#zoneExportScope button').forEach(btn => {
+                const active = btn.dataset.scope === scope;
+                btn.className = `flex-1 py-2 text-xs rounded-lg border transition-colors ${active ? 'border-blue-500 bg-blue-500/15 text-blue-400' : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:bg-slate-700'}`;
+            });
+            renderZoneCascader();
+        }
+
+        function renderZoneCascader() {
+            const { scope, province, city } = zoneExportState;
+            const container = document.getElementById('zoneExportCascader');
+            if (scope === 'national') {
+                container.innerHTML = `<div class="col-span-3 text-center py-3 text-xs text-slate-500"><i class="fas fa-globe-asia mr-1"></i> 将导出全国所有重点区域网点台账</div>`;
+                return;
+            }
+            const provinces = mockData.zoneRegions;
+            // 非 national 层级始终展示省份下拉框
+            const provinceSel = `<select onchange="setZoneProvince(this.value)" class="search-input text-xs"><option value="">省份</option>${provinces.map(p => `<option value="${p.name}" ${province === p.name ? 'selected' : ''}>${p.name}</option>`).join('')}</select>`;
+            const showCity = ['city', 'district'].includes(scope) && province;
+            const provinceObj = provinces.find(p => p.name === province);
+            const citySel = showCity && provinceObj ? `<select onchange="setZoneCity(this.value)" class="search-input text-xs"><option value="">城市</option>${provinceObj.cities.map(c => `<option value="${c.name}" ${city === c.name ? 'selected' : ''}>${c.name}</option>`).join('')}</select>` : '';
+            const showDistrict = scope === 'district' && province && city;
+            const cityObj = provinceObj ? provinceObj.cities.find(c => c.name === city) : null;
+            const districtSel = showDistrict && cityObj ? `<select onchange="zoneExportState.district=this.value" class="search-input text-xs"><option value="">区县</option>${cityObj.districts.map(d => `<option value="${d}">${d}</option>`).join('')}</select>` : '';
+            container.innerHTML = provinceSel + (showCity ? citySel : '') + (showDistrict ? districtSel : '');
+            // 动态调整网格列数
+            if (showDistrict) container.className = 'grid grid-cols-3 gap-2';
+            else if (showCity) container.className = 'grid grid-cols-2 gap-2';
+            else container.className = 'grid grid-cols-1 gap-2';
+        }
+
+        function setZoneProvince(name) {
+            zoneExportState.province = name;
+            zoneExportState.city = '';
+            zoneExportState.district = '';
+            renderZoneCascader();
+        }
+
+        function setZoneCity(name) {
+            zoneExportState.city = name;
+            zoneExportState.district = '';
+            renderZoneCascader();
+        }
+
+        function executeZoneExport() {
+            const { scope, province, city, district, format } = zoneExportState;
+            // 校验必填层级
+            if (['province','city','district'].includes(scope) && !province) { showToast('请先选择省份', 'warning'); return; }
+            if (['city','district'].includes(scope) && !city) { showToast('请先选择城市', 'warning'); return; }
+            if (scope === 'district' && !district) { showToast('请先选择区县', 'warning'); return; }
+
+            const scopeText = { national: '全国', province: `${province}全省`, city: `${province} ${city}`, district: `${province} ${city} ${district}` }[scope] || '全国';
+            const ext = format === 'excel' ? 'xlsx' : 'csv';
+            const filename = `网点台账_${scopeText.replace(/\s/g, '_')}.${ext}`;
+
+            // 生成示意性台账内容（以重点区域为主键）
+            const header = '区域名称,类型,小类标签,所属行政区划,覆盖状态,自营网点名称,自营网点编号,代理网点名称,代理网点编号,同业网点数量';
+            const rows = [
+                '经济技术开发区,开发区,国家级经开区,' + scopeText + ',已覆盖,经开区支行,BJ-001,经开区代理点,AG-101,8',
+                '中关村软件园,开发区,高新技术开发区,' + scopeText + ',已覆盖,软件园支行,BJ-002,,,-,5',
+                '未来科学城,开发区,科技园区,' + scopeText + ',未覆盖,,,,-,3',
+                '大兴国际机场临空经济区,开发区,临空经济区,' + scopeText + ',已覆盖,临空支行,BJ-003,机场代理点,AG-102,6'
+            ].join('\n');
+            const csvContent = '\uFEFF' + header + '\n' + rows;
+
+            if (format === 'excel') {
+                // Excel：用 HTML 表格生成 .xls 兼容文件
+                const htmlTable = `<table border="1"><tr><th>区域名称</th><th>类型</th><th>小类标签</th><th>所属行政区划</th><th>覆盖状态</th><th>自营网点名称</th><th>自营网点编号</th><th>代理网点名称</th><th>代理网点编号</th><th>同业网点数量</th></tr>
+<tr><td>经济技术开发区</td><td>开发区</td><td>国家级经开区</td><td>${scopeText}</td><td>已覆盖</td><td>经开区支行</td><td>BJ-001</td><td>经开区代理点</td><td>AG-101</td><td>8</td></tr>
+<tr><td>中关村软件园</td><td>开发区</td><td>高新技术开发区</td><td>${scopeText}</td><td>已覆盖</td><td>软件园支行</td><td>BJ-002</td><td>-</td><td>-</td><td>5</td></tr>
+<tr><td>未来科学城</td><td>开发区</td><td>科技园区</td><td>${scopeText}</td><td>未覆盖</td><td>-</td><td>-</td><td>-</td><td>-</td><td>3</td></tr>
+<tr><td>大兴国际机场临空经济区</td><td>开发区</td><td>临空经济区</td><td>${scopeText}</td><td>已覆盖</td><td>临空支行</td><td>BJ-003</td><td>机场代理点</td><td>AG-102</td><td>6</td></tr></table>`;
+                const blob = new Blob(['\uFEFF' + htmlTable], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url; a.download = filename.replace('.xlsx', '.xls');
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            } else {
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url; a.download = filename;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            closeModal('zoneExportModal');
+            showToast(`网点台账已导出（${scopeText}）`);
+        }
+
         // ============ 筛选功能 ============
         function filterBranches(query) {
             const items = document.querySelectorAll('#branchList .list-item');
@@ -2748,8 +4284,403 @@
         }
 
         function showGridDetail(gridId) {
+            const grid = mockData.grids.find(g => g.id === gridId);
+            if (!grid) return;
+
+            closeSidePanel();
+            closeLeftPanel();
+            closeComparePanel();
+            closeCompareReport();
+            closeGridDetail();
             document.getElementById('infoPopup').classList.remove('show');
-            alert(`查看栅格 ${gridId} 的详细数据分析（演示功能）`);
+
+            const panel = document.getElementById('gridDetailPanel');
+            const content = document.getElementById('gridDetailContent');
+
+            // 生成详细数据
+            const detail = {
+                density: Math.floor(8 + Math.random() * 15),
+                merchants: Math.floor(80 + Math.random() * 150),
+                price: Math.floor(60000 + Math.random() * 80000),
+                population: Math.floor(5000 + Math.random() * 10000),
+                consumption: Math.floor(3000 + Math.random() * 4000),
+                flow: Math.floor(70 + Math.random() * 25),
+                compete: Math.floor(60 + Math.random() * 30),
+                access: Math.floor(70 + Math.random() * 25),
+                growth: Math.floor(65 + Math.random() * 30),
+                cost: Math.floor(60 + Math.random() * 30),
+                nearby: mockData.grids.filter(g => g.id !== grid.id).sort(() => Math.random() - 0.5).slice(0, 5).map(g => ({...g, dist: Math.floor(200 + Math.random() * 1500)})),
+                pois: [
+                    {type: '餐饮', count: Math.floor(20 + Math.random() * 40), icon: 'fa-utensils', color: '#f59e0b'},
+                    {type: '零售', count: Math.floor(15 + Math.random() * 30), icon: 'fa-shopping-bag', color: '#3b82f6'},
+                    {type: '教育', count: Math.floor(3 + Math.random() * 10), icon: 'fa-graduation-cap', color: '#10b981'},
+                    {type: '医疗', count: Math.floor(2 + Math.random() * 6), icon: 'fa-hospital', color: '#ef4444'},
+                    {type: '金融', count: Math.floor(5 + Math.random() * 12), icon: 'fa-university', color: '#8b5cf6'},
+                    {type: '办公', count: Math.floor(10 + Math.random() * 25), icon: 'fa-building', color: '#64748b'}
+                ]
+            };
+
+            const scoreColor = grid.score >= 85 ? '#10b981' : grid.score >= 75 ? '#3b82f6' : '#f59e0b';
+            const circumference = 2 * Math.PI * 34;
+            const offset = circumference - (grid.score / 100) * circumference;
+
+            content.innerHTML = `
+                <div class="animate-fade-in">
+                    <div class="flex items-center justify-between mb-5">
+                        <div class="flex items-center gap-3">
+                            <div class="grid-score-ring">
+                                <svg viewBox="0 0 72 72">
+                                    <circle class="bg" cx="36" cy="36" r="34"/>
+                                    <circle class="fill" cx="36" cy="36" r="34" 
+                                        stroke="${scoreColor}" 
+                                        stroke-dasharray="${circumference}" 
+                                        stroke-dashoffset="${offset}"/>
+                                </svg>
+                                <div class="score-text" style="color: ${scoreColor}">${grid.score}</div>
+                            </div>
+                            <div>
+                                <h2 class="text-lg font-bold text-white">${grid.id}</h2>
+                                <div class="flex items-center gap-2 mt-1">
+                                    ${grid.rank ? `<span class="tag tag-amber">第${grid.rank}位</span>` : ''}
+                                    <span class="tag tag-blue">${grid.type}TOP</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="btnCloseGridDetail" class="text-slate-500 hover:text-white w-7 h-7 rounded-lg hover:bg-slate-800 flex items-center justify-center transition-colors">
+                            <i class="fas fa-times text-sm"></i>
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-chart-bar text-blue-400 text-xs"></i> 核心指标</div>
+                        <div class="space-y-1">
+                            <div class="metric-row">
+                                <div class="metric-icon" style="background: rgba(239,68,68,0.15); color: #f87171;"><i class="fas fa-building"></i></div>
+                                <div class="metric-info"><div class="metric-label">同业密度</div><div class="metric-value">${detail.density} 家/km²</div></div>
+                            </div>
+                            <div class="metric-row">
+                                <div class="metric-icon" style="background: rgba(59,130,246,0.15); color: #60a5fa;"><i class="fas fa-map-pin"></i></div>
+                                <div class="metric-info"><div class="metric-label">POI数量</div><div class="metric-value">${detail.merchants} 个</div></div>
+                            </div>
+                            <div class="metric-row">
+                                <div class="metric-icon" style="background: rgba(245,158,11,0.15); color: #fbbf24;"><i class="fas fa-home"></i></div>
+                                <div class="metric-info"><div class="metric-label">平均房价</div><div class="metric-value">¥${(detail.price/10000).toFixed(1)} 万/㎡</div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title flex justify-between">
+                            <span><i class="fas fa-bullseye text-purple-400 text-xs"></i> 五维评分</span>
+                            <span class="text-xs text-slate-500">满分100</span>
+                        </div>
+                        <div class="space-y-2 mt-3">
+                            ${[['客流指数', detail.flow], ['消费指数', detail.consumption > 5000 ? 90 : detail.consumption > 4000 ? 75 : 60], ['竞争指数', detail.compete], ['可达指数', detail.access], ['成长指数', detail.growth]].map(([label, val]) => `
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-slate-400">${label}</span>
+                                        <span class="text-slate-200 font-medium">${val}</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill ${val >= 85 ? 'bg-green-500' : val >= 70 ? 'bg-blue-500' : 'bg-amber-500'}" style="width: ${val}%"></div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-map-pin text-red-400 text-xs"></i> POI分布</div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="text-center p-3 bg-slate-800/40 rounded-xl">
+                                <i class="fas fa-store" style="color: #f59e0b; font-size: 14px;"></i>
+                                <div class="text-sm font-bold text-white mt-1">${Math.floor(15 + Math.random() * 30)}</div>
+                                <div class="text-xs text-slate-500">中小型零售商铺</div>
+                            </div>
+                            <div class="text-center p-3 bg-slate-800/40 rounded-xl">
+                                <i class="fas fa-building" style="color: #3b82f6; font-size: 14px;"></i>
+                                <div class="text-sm font-bold text-white mt-1">${Math.floor(8 + Math.random() * 20)}</div>
+                                <div class="text-xs text-slate-500">中小微企业</div>
+                            </div>
+                            <div class="text-center p-3 bg-slate-800/40 rounded-xl">
+                                <i class="fas fa-shopping-bag" style="color: #a855f7; font-size: 14px;"></i>
+                                <div class="text-sm font-bold text-white mt-1">${Math.floor(3 + Math.random() * 8)}</div>
+                                <div class="text-xs text-slate-500">商业聚客点</div>
+                            </div>
+                            <div class="text-center p-3 bg-slate-800/40 rounded-xl">
+                                <i class="fas fa-subway" style="color: #10b981; font-size: 14px;"></i>
+                                <div class="text-sm font-bold text-white mt-1">${Math.floor(2 + Math.random() * 5)}</div>
+                                <div class="text-xs text-slate-500">交通聚客点</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-university text-blue-400 text-xs"></i> 我行指标</div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                <div class="text-lg font-bold text-blue-400">${Math.floor(200 + Math.random() * 300)}</div>
+                                <div class="text-xs text-slate-500">企查查商户</div>
+                            </div>
+                            <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                <div class="text-lg font-bold text-amber-400">${Math.floor(500 + Math.random() * 800)}</div>
+                                <div class="text-xs text-slate-500">个金商户客户</div>
+                            </div>
+                            <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                <div class="text-lg font-bold text-green-400">${Math.floor(50 + Math.random() * 150)}</div>
+                                <div class="text-xs text-slate-500">公司客户</div>
+                            </div>
+                            <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                <div class="text-lg font-bold text-purple-400">${Math.floor(800 + Math.random() * 1200)}</div>
+                                <div class="text-xs text-slate-500">活跃客户</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-building text-green-400 text-xs"></i> 周边网点</div>
+                        <div class="space-y-2">
+                            ${mockData.branches.slice(0, 3).map((branch, idx) => {
+                                const dist = [320, 580, 950][idx];
+                                const walk = [5, 9, 14][idx];
+                                return `
+                                <div class="p-3 bg-slate-800/40 rounded-xl">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm font-medium text-white">${branch.name}</span>
+                                        <span class="text-xs text-slate-500">${dist}m</span>
+                                    </div>
+                                    <div class="text-xs text-slate-500 mb-1">编号: BR-${String(branch.id).padStart(4, '0')} | ${branch.address}</div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <span class="text-slate-600">直线距离 ${dist}m</span>
+                                        <span class="text-slate-700">|</span>
+                                        <span class="text-slate-600">步行约 ${walk}分钟</span>
+                                    </div>
+                                </div>
+                            `}).join('')}
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-users text-cyan-400 text-xs"></i> 人口画像</div>
+                        <div class="flex gap-3 mb-4">
+                            <div class="flex-1 text-center p-2 bg-slate-800/40 rounded-lg">
+                                <div class="text-lg font-bold text-blue-400">${Math.floor(8000 + Math.random() * 7000).toLocaleString()}</div>
+                                <div class="text-xs text-slate-500">居住人口</div>
+                            </div>
+                            <div class="flex-1 text-center p-2 bg-slate-800/40 rounded-lg">
+                                <div class="text-lg font-bold text-amber-400">${Math.floor(12000 + Math.random() * 10000).toLocaleString()}</div>
+                                <div class="text-xs text-slate-500">工作人口</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">男女比例</div>
+                            <div class="flex gap-3">
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">居住</div>
+                                    <div class="h-3 rounded-full overflow-hidden flex">
+                                        <div class="bg-blue-500" style="width: ${Math.floor(48 + Math.random() * 6)}%"></div>
+                                        <div class="bg-pink-500" style="width: ${Math.floor(46 + Math.random() * 6)}%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs mt-1"><span class="text-blue-400">男</span><span class="text-pink-400">女</span></div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">工作</div>
+                                    <div class="h-3 rounded-full overflow-hidden flex">
+                                        <div class="bg-blue-500" style="width: ${Math.floor(52 + Math.random() * 8)}%"></div>
+                                        <div class="bg-pink-500" style="width: ${Math.floor(40 + Math.random() * 8)}%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs mt-1"><span class="text-blue-400">男</span><span class="text-pink-400">女</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">年龄分布</div>
+                            <div class="flex gap-3">
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">居住</div>
+                                    <div class="flex items-end gap-1 h-16">
+                                        ${[['18-25', 15, '#60a5fa'], ['26-35', 30, '#3b82f6'], ['36-45', 25, '#2563eb'], ['46-55', 18, '#1d4ed8'], ['55+', 12, '#1e40af']].map(([age, pct, color]) => `
+                                            <div class="flex-1 flex flex-col items-center gap-1">
+                                                <div class="w-full rounded-t" style="height: ${pct * 1.5}px; background: ${color};"></div>
+                                                <span class="text-xs text-slate-600">${age}</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">工作</div>
+                                    <div class="flex items-end gap-1 h-16">
+                                        ${[['18-25', 12, '#fbbf24'], ['26-35', 42, '#f59e0b'], ['36-45', 28, '#d97706'], ['46-55', 13, '#b45309'], ['55+', 5, '#92400e']].map(([age, pct, color]) => `
+                                            <div class="flex-1 flex flex-col items-center gap-1">
+                                                <div class="w-full rounded-t" style="height: ${pct * 1.5}px; background: ${color};"></div>
+                                                <span class="text-xs text-slate-600">${age}</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">教育水平</div>
+                            <div class="space-y-2">
+                                ${[['高中及以下', Math.floor(20 + Math.random() * 15), Math.floor(12 + Math.random() * 10)], ['本科', Math.floor(35 + Math.random() * 15), Math.floor(45 + Math.random() * 15)], ['硕士及以上', Math.floor(12 + Math.random() * 15), Math.floor(22 + Math.random() * 15)]].map(([label, live, work]) => `
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1"><span class="text-slate-400">${label}</span></div>
+                                        <div class="flex gap-2 items-center">
+                                            <span class="text-xs text-slate-600 w-8">居住</span>
+                                            <div class="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-500 rounded-full" style="width: ${live}%"></div></div>
+                                            <span class="text-xs text-white w-8 text-right">${live}%</span>
+                                        </div>
+                                        <div class="flex gap-2 items-center mt-1">
+                                            <span class="text-xs text-slate-600 w-8">工作</span>
+                                            <div class="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-amber-500 rounded-full" style="width: ${work}%"></div></div>
+                                            <span class="text-xs text-white w-8 text-right">${work}%</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">消费水平</div>
+                            <div class="flex gap-3">
+                                <div class="flex-1 text-center p-2 bg-slate-800/40 rounded-lg">
+                                    <div class="text-xs text-slate-500">居住</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        ${[1,2,3].map(i => `<div class="w-6 h-6 rounded ${i <= (Math.floor(Math.random() * 3) + 1) ? 'bg-green-500' : 'bg-slate-700'}"></div>`).join('')}
+                                    </div>
+                                    <div class="text-xs text-slate-500 mt-1">${['低','中','高'][Math.floor(Math.random() * 3)]}</div>
+                                </div>
+                                <div class="flex-1 text-center p-2 bg-slate-800/40 rounded-lg">
+                                    <div class="text-xs text-slate-500">工作</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        ${[1,2,3].map(i => `<div class="w-6 h-6 rounded ${i <= (Math.floor(Math.random() * 3) + 1) ? 'bg-green-500' : 'bg-slate-700'}"></div>`).join('')}
+                                    </div>
+                                    <div class="text-xs text-slate-500 mt-1">${['低','中','高'][Math.floor(Math.random() * 3)]}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">收入水平（月均）</div>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-slate-600 w-10">居住</span>
+                                    <div class="flex-1 h-6 bg-slate-800 rounded overflow-hidden relative">
+                                        <div class="h-full bg-blue-500/60 rounded flex items-center px-2" style="width: 60%">
+                                            <span class="text-xs text-white">¥${Math.floor(8000 + Math.random() * 12000).toLocaleString()}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-slate-600 w-10">工作</span>
+                                    <div class="flex-1 h-6 bg-slate-800 rounded overflow-hidden relative">
+                                        <div class="h-full bg-amber-500/60 rounded flex items-center px-2" style="width: 80%">
+                                            <span class="text-xs text-white">¥${Math.floor(12000 + Math.random() * 18000).toLocaleString()}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">职业分布</div>
+                            <div class="flex gap-3">
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">居住</div>
+                                    <div class="h-4 rounded-full overflow-hidden flex text-xs">
+                                        <div class="bg-blue-500 flex items-center justify-center text-white" style="width: ${Math.floor(25 + Math.random() * 15)}%">白领</div>
+                                        <div class="bg-blue-400 flex items-center justify-center text-white" style="width: ${Math.floor(20 + Math.random() * 10)}%">服务</div>
+                                        <div class="bg-blue-300 flex items-center justify-center text-white" style="width: ${Math.floor(15 + Math.random() * 10)}%">制造</div>
+                                        <div class="bg-blue-200 flex items-center justify-center text-slate-700" style="width: ${Math.floor(20 + Math.random() * 10)}%">其他</div>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">工作</div>
+                                    <div class="h-4 rounded-full overflow-hidden flex text-xs">
+                                        <div class="bg-amber-500 flex items-center justify-center text-white" style="width: ${Math.floor(45 + Math.random() * 15)}%">白领</div>
+                                        <div class="bg-amber-400 flex items-center justify-center text-white" style="width: ${Math.floor(15 + Math.random() * 10)}%">服务</div>
+                                        <div class="bg-amber-300 flex items-center justify-center text-white" style="width: ${Math.floor(10 + Math.random() * 8)}%">制造</div>
+                                        <div class="bg-amber-200 flex items-center justify-center text-slate-700" style="width: ${Math.floor(15 + Math.random() * 8)}%">其他</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">行业分布 TOP4</div>
+                            <div class="space-y-2">
+                                ${[['IT', Math.floor(12 + Math.random() * 8), Math.floor(25 + Math.random() * 12)], ['金融', Math.floor(8 + Math.random() * 6), Math.floor(18 + Math.random() * 10)], ['教育', Math.floor(10 + Math.random() * 8), Math.floor(8 + Math.random() * 5)], ['医疗', Math.floor(8 + Math.random() * 5), Math.floor(6 + Math.random() * 5)]].map(([industry, live, work]) => `
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs text-slate-400 w-8">${industry}</span>
+                                        <div class="flex-1 flex gap-1">
+                                            <div class="h-3 bg-blue-500 rounded-sm" style="width: ${live}%"></div>
+                                            <div class="h-3 bg-amber-500 rounded-sm" style="width: ${work}%"></div>
+                                        </div>
+                                        <span class="text-xs text-slate-600 w-16 text-right">${live}% / ${work}%</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="flex gap-4 mt-1 text-xs"><span class="text-blue-400">■ 居住</span><span class="text-amber-400">■ 工作</span></div>
+                        </div>
+
+                        <div>
+                            <div class="text-xs text-slate-500 mb-2">人生阶段</div>
+                            <div class="flex gap-3">
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">居住</div>
+                                    <div class="space-y-1">
+                                        ${[['单身', Math.floor(20 + Math.random() * 15), '#60a5fa'], ['已婚无孩', Math.floor(25 + Math.random() * 10), '#3b82f6'], ['有孩', Math.floor(35 + Math.random() * 15), '#2563eb'], ['退休', Math.floor(10 + Math.random() * 8), '#1d4ed8']].map(([label, pct, color]) => `
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-xs text-slate-500 w-12">${label}</span>
+                                                <div class="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden"><div class="h-full rounded-full" style="width: ${pct}%; background: ${color}"></div></div>
+                                                <span class="text-xs text-white w-8 text-right">${pct}%</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">工作</div>
+                                    <div class="space-y-1">
+                                        ${[['单身', Math.floor(30 + Math.random() * 15), '#fbbf24'], ['已婚无孩', Math.floor(35 + Math.random() * 10), '#f59e0b'], ['有孩', Math.floor(25 + Math.random() * 12), '#d97706'], ['退休', Math.floor(2 + Math.random() * 3), '#b45309']].map(([label, pct, color]) => `
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-xs text-slate-500 w-12">${label}</span>
+                                                <div class="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden"><div class="h-full rounded-full" style="width: ${pct}%; background: ${color}"></div></div>
+                                                <span class="text-xs text-white w-8 text-right">${pct}%</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 mt-4">
+                        <button id="btnGridDetailCompare" class="btn btn-primary flex-1 justify-center py-2 text-xs">
+                            <i class="fas fa-balance-scale mr-1" style="font-size:9px"></i> 加入对比
+                        </button>
+                        <button id="btnGridDetailExport" class="btn btn-secondary flex-1 justify-center py-2 text-xs">
+                            <i class="fas fa-download mr-1" style="font-size:9px"></i> 导出数据
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            panel.classList.add('open');
+
+            // 绑定事件
+            setTimeout(() => {
+                const closeBtn = document.getElementById('btnCloseGridDetail');
+                const compareBtn = document.getElementById('btnGridDetailCompare');
+                const exportBtn = document.getElementById('btnGridDetailExport');
+
+                if (closeBtn) closeBtn.onclick = closeGridDetail;
+                if (compareBtn) compareBtn.onclick = function() { openComparePanel(grid.id); };
+                if (exportBtn) exportBtn.onclick = function() { showExportModal('grid', '栅格数据'); };
+            }, 50);
         }
 
         // ============ 快捷工具 ============
@@ -2759,6 +4690,7 @@
             renderMap();
             closeSidePanel();
             closeLeftPanel();
+            closeAdminDetail();
         }
 
         function toggleFullscreen() {
@@ -2852,6 +4784,42 @@
             `;
 
             panel.classList.add('open');
+
+            // 初始化五大行占比饼图
+            setTimeout(() => {
+                const pieCanvas = document.getElementById('bigFivePieChart');
+                if (pieCanvas && zoneBigFive.length > 0) {
+                    const stats = getBigFiveStats(zoneBigFive);
+                    new Chart(pieCanvas, {
+                        type: 'doughnut',
+                        data: {
+                            labels: stats.map(s => s.bank),
+                            datasets: [{
+                                data: stats.map(s => s.count),
+                                backgroundColor: stats.map(s => s.color),
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            cutout: '55%',
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const s = stats[context.dataIndex];
+                                            return s.bank + ': ' + s.count + '家 (' + s.percent + '%)';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }, 100);
         }
 
         function closeComparePanel() {
@@ -3208,6 +5176,42 @@
             `;
 
             panel.classList.add('open');
+
+            // 初始化五大行占比饼图
+            setTimeout(() => {
+                const pieCanvas = document.getElementById('bigFivePieChart');
+                if (pieCanvas && zoneBigFive.length > 0) {
+                    const stats = getBigFiveStats(zoneBigFive);
+                    new Chart(pieCanvas, {
+                        type: 'doughnut',
+                        data: {
+                            labels: stats.map(s => s.bank),
+                            datasets: [{
+                                data: stats.map(s => s.count),
+                                backgroundColor: stats.map(s => s.color),
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            cutout: '55%',
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const s = stats[context.dataIndex];
+                                            return s.bank + ': ' + s.count + '家 (' + s.percent + '%)';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }, 100);
         }
 
         function filterCompareHistory(query) {
@@ -3658,6 +5662,681 @@
             document.getElementById('gridDetailPanel').classList.remove('open');
         }
 
-    </script>
+    
+        // ============ 行政区划渲染 ============
+        function renderAdminDivisions() {
+            const layer = document.getElementById('adminLayer');
+            if (!layer) return;
+            layer.innerHTML = '';
+
+            mockData.adminDivisions.forEach(admin => {
+                const area = document.createElement('div');
+                area.className = 'admin-area';
+                area.style.left = admin.x + '%';
+                area.style.top = admin.y + '%';
+                area.style.width = admin.w + '%';
+                area.style.height = admin.h + '%';
+
+                area.innerHTML = `
+                    <div class="admin-label">${admin.name}</div>
+                    <button class="admin-detail-btn" title="查看详情">
+                        <i class="fas fa-chart-bar"></i>
+                        <span class="tooltip">查看区划详情</span>
+                    </button>
+                    <div class="admin-stats">
+                        <div class="stat-chip"><i class="fas fa-building" style="font-size:8px"></i> ${admin.ourBranches}家</div>
+                        <div class="stat-chip"><i class="fas fa-university" style="font-size:8px"></i> ${admin.competitors.total}家同业</div>
+                    </div>
+                `;
+
+                // 鼠标进入时激活交互状态
+                area.addEventListener('mouseenter', function() {
+                    this.classList.add('hover-active');
+                });
+
+                // 鼠标离开时取消交互状态
+                area.addEventListener('mouseleave', function() {
+                    this.classList.remove('hover-active');
+                });
+
+                // 点击详情按钮打开面板
+                const detailBtn = area.querySelector('.admin-detail-btn');
+                detailBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    showAdminDetail(admin);
+                });
+
+                layer.appendChild(area);
+            });
+        }
+
+        function showAdminDetail(admin) {
+            closeSidePanel();
+            closeLeftPanel();
+            closeGridDetail();
+            closeComparePanel();
+            closeCompareReport();
+            document.getElementById('infoPopup').classList.remove('show');
+
+            const panel = document.getElementById('adminDetailPanel');
+            const content = document.getElementById('adminDetailContent');
+
+            const totalLand = admin.landTypes.reduce((sum, l) => sum + l.area, 0);
+            const landPercentages = admin.landTypes.map(l => ({
+                ...l,
+                percent: ((l.area / totalLand) * 100).toFixed(1)
+            }));
+
+            const compTotal = admin.competitors.total;
+            const compTypes = Object.entries(admin.competitors.byType).map(([type, count]) => ({
+                type, count,
+                percent: ((count / compTotal) * 100).toFixed(1),
+                color: type === '国有行' ? '#ef4444' : type === '股份行' ? '#f59e0b' : type === '城商行' ? '#3b82f6' : '#10b981'
+            }));
+
+            const pop = admin.population;
+            const ages = ['18-25', '26-35', '36-45', '46-55', '55+'];
+            const eduLabels = ['高中及以下', '本科', '硕士及以上'];
+            const occLabels = ['白领', '服务', '制造', '其他'];
+            const indLabels = ['IT', '金融', '教育', '医疗'];
+            const lifeLabels = ['单身', '已婚无孩', '有孩', '退休'];
+
+            content.innerHTML = `
+                <div class="animate-fade-in">
+                    <div class="flex items-center justify-between mb-5">
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <span class="w-7 h-7 rounded-lg bg-cyan-600 flex items-center justify-center text-xs">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </span>
+                                ${admin.name}
+                            </h2>
+                            <p class="text-xs text-slate-500 mt-1">行政区划代码: ${admin.code}</p>
+                        </div>
+                        <button onclick="closeAdminDetail()" class="text-slate-500 hover:text-white w-7 h-7 rounded-lg hover:bg-slate-800 flex items-center justify-center transition-colors">
+                            <i class="fas fa-times text-sm"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex gap-2 mb-5 flex-wrap">
+                        <span class="tag bg-slate-800/60 text-slate-300 border border-slate-700/50">${admin.code}</span>
+                        <span class="tag bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">${admin.keyZones.length}个重点区域</span>
+                        <span class="tag bg-blue-500/15 text-blue-400 border border-blue-500/30">我行网点 ${admin.ourBranches}家</span>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-info-circle text-cyan-400 text-xs"></i> 区划信息</div>
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <div class="text-center p-3 bg-slate-800/40 rounded-xl">
+                                <div class="stat-number text-cyan-400">${admin.area}</div>
+                                <div class="stat-label">总面积 (km²)</div>
+                            </div>
+                            <div class="text-center p-3 bg-slate-800/40 rounded-xl">
+                                <div class="stat-number text-blue-400">${admin.perimeter}</div>
+                                <div class="stat-label">总周长 (km)</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-map-pin text-slate-600"></i>
+                            <span>重点区域: ${admin.keyZones.join('、')}</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-layer-group text-green-400 text-xs"></i> 土地类型及分布</div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="land-type-ring">
+                                <svg viewBox="0 0 100 100" width="100" height="100">
+                                    ${landPercentages.map((l, idx, arr) => {
+                                        let cumulative = 0;
+                                        for (let i = 0; i < idx; i++) cumulative += parseFloat(arr[i].percent);
+                                        const startAngle = (cumulative / 100) * 360;
+                                        cumulative += parseFloat(l.percent);
+                                        const endAngle = (cumulative / 100) * 360;
+                                        const startRad = (startAngle - 90) * Math.PI / 180;
+                                        const endRad = (endAngle - 90) * Math.PI / 180;
+                                        const x1 = 50 + 40 * Math.cos(startRad);
+                                        const y1 = 50 + 40 * Math.sin(startRad);
+                                        const x2 = 50 + 40 * Math.cos(endRad);
+                                        const y2 = 50 + 40 * Math.sin(endRad);
+                                        const largeArc = parseFloat(l.percent) > 50 ? 1 : 0;
+                                        return `<path d="M 50 50 L ${x1} ${y1} A 40 40 0 ${largeArc} 1 ${x2} ${y2} Z" fill="${l.color}" opacity="0.85"/>`;
+                                    }).join('')}
+                                    <circle cx="50" cy="50" r="25" fill="rgba(11,17,33,0.9)"/>
+                                    <text x="50" y="48" text-anchor="middle" fill="white" font-size="10" font-weight="bold">${totalLand.toFixed(1)}</text>
+                                    <text x="50" y="58" text-anchor="middle" fill="#64748b" font-size="7">km²</text>
+                                </svg>
+                            </div>
+                            <div class="flex-1 space-y-1.5">
+                                ${landPercentages.map(l => `
+                                    <div class="land-legend-item">
+                                        <div class="land-legend-dot" style="background: ${l.color}"></div>
+                                        <span class="flex-1">${l.type}</span>
+                                        <span class="text-white font-medium">${l.area} km²</span>
+                                        <span class="text-slate-500">(${l.percent}%)</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-store text-amber-400 text-xs"></i> 商业环境</div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="text-center p-3 bg-slate-800/40 rounded-xl">
+                                <i class="fas fa-building" style="color: #3b82f6; font-size: 14px;"></i>
+                                <div class="text-sm font-bold text-white mt-1">${admin.business.sme.toLocaleString()}</div>
+                                <div class="text-xs text-slate-500">中小型企业</div>
+                            </div>
+                            <div class="text-center p-3 bg-slate-800/40 rounded-xl">
+                                <i class="fas fa-store" style="color: #f59e0b; font-size: 14px;"></i>
+                                <div class="text-sm font-bold text-white mt-1">${admin.business.retail.toLocaleString()}</div>
+                                <div class="text-xs text-slate-500">小型零售商铺</div>
+                            </div>
+                            <div class="text-center p-3 bg-slate-800/40 rounded-xl">
+                                <i class="fas fa-subway" style="color: #10b981; font-size: 14px;"></i>
+                                <div class="text-sm font-bold text-white mt-1">${admin.business.transport}</div>
+                                <div class="text-xs text-slate-500">交通聚客点</div>
+                            </div>
+                            <div class="text-center p-3 bg-slate-800/40 rounded-xl">
+                                <i class="fas fa-shopping-bag" style="color: #a855f7; font-size: 14px;"></i>
+                                <div class="text-sm font-bold text-white mt-1">${admin.business.commercial}</div>
+                                <div class="text-xs text-slate-500">商业聚客点</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-users text-cyan-400 text-xs"></i> 人口画像</div>
+                        <div class="flex gap-3 mb-4">
+                            <div class="flex-1 text-center p-2 bg-slate-800/40 rounded-lg">
+                                <div class="text-lg font-bold text-blue-400">${pop.resident.toLocaleString()}</div>
+                                <div class="text-xs text-slate-500">居住人口</div>
+                            </div>
+                            <div class="flex-1 text-center p-2 bg-slate-800/40 rounded-lg">
+                                <div class="text-lg font-bold text-amber-400">${pop.work.toLocaleString()}</div>
+                                <div class="text-xs text-slate-500">工作人口</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">男女比例</div>
+                            <div class="flex gap-3">
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">居住</div>
+                                    <div class="h-3 rounded-full overflow-hidden flex">
+                                        <div class="bg-blue-500" style="width: ${pop.maleRatio.live}%"></div>
+                                        <div class="bg-pink-500" style="width: ${100 - pop.maleRatio.live}%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs mt-1"><span class="text-blue-400">男 ${pop.maleRatio.live}%</span><span class="text-pink-400">女 ${100 - pop.maleRatio.live}%</span></div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">工作</div>
+                                    <div class="h-3 rounded-full overflow-hidden flex">
+                                        <div class="bg-blue-500" style="width: ${pop.maleRatio.work}%"></div>
+                                        <div class="bg-pink-500" style="width: ${100 - pop.maleRatio.work}%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs mt-1"><span class="text-blue-400">男 ${pop.maleRatio.work}%</span><span class="text-pink-400">女 ${100 - pop.maleRatio.work}%</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">年龄分布</div>
+                            <div class="flex gap-3">
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">居住</div>
+                                    <div class="flex items-end gap-1 h-16">
+                                        ${ages.map((age, i) => `<div class="flex-1 flex flex-col items-center gap-1"><div class="w-full rounded-t" style="height: ${pop.ageDist.live[i] * 1.5}px; background: ${['#60a5fa','#3b82f6','#2563eb','#1d4ed8','#1e40af'][i]};"></div><span class="text-xs text-slate-600">${age}</span></div>`).join('')}
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">工作</div>
+                                    <div class="flex items-end gap-1 h-16">
+                                        ${ages.map((age, i) => `<div class="flex-1 flex flex-col items-center gap-1"><div class="w-full rounded-t" style="height: ${pop.ageDist.work[i] * 1.5}px; background: ${['#fbbf24','#f59e0b','#d97706','#b45309','#92400e'][i]};"></div><span class="text-xs text-slate-600">${age}</span></div>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">教育水平</div>
+                            <div class="space-y-2">
+                                ${eduLabels.map((label, i) => `
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1"><span class="text-slate-400">${label}</span></div>
+                                        <div class="flex gap-2 items-center">
+                                            <span class="text-xs text-slate-600 w-8">居住</span>
+                                            <div class="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-500 rounded-full" style="width: ${pop.education.live[i]}%"></div></div>
+                                            <span class="text-xs text-white w-8 text-right">${pop.education.live[i]}%</span>
+                                        </div>
+                                        <div class="flex gap-2 items-center mt-1">
+                                            <span class="text-xs text-slate-600 w-8">工作</span>
+                                            <div class="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-amber-500 rounded-full" style="width: ${pop.education.work[i]}%"></div></div>
+                                            <span class="text-xs text-white w-8 text-right">${pop.education.work[i]}%</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">消费水平</div>
+                            <div class="flex gap-3">
+                                <div class="flex-1 text-center p-2 bg-slate-800/40 rounded-lg">
+                                    <div class="text-xs text-slate-500">居住</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        ${[1,2,3].map(i => `<div class="w-6 h-6 rounded ${i <= (pop.consumption.live === '高' ? 3 : pop.consumption.live === '中' ? 2 : 1) ? 'bg-green-500' : 'bg-slate-700'}"></div>`).join('')}
+                                    </div>
+                                    <div class="text-xs text-slate-500 mt-1">${pop.consumption.live}</div>
+                                </div>
+                                <div class="flex-1 text-center p-2 bg-slate-800/40 rounded-lg">
+                                    <div class="text-xs text-slate-500">工作</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        ${[1,2,3].map(i => `<div class="w-6 h-6 rounded ${i <= (pop.consumption.work === '高' ? 3 : pop.consumption.work === '中' ? 2 : 1) ? 'bg-green-500' : 'bg-slate-700'}"></div>`).join('')}
+                                    </div>
+                                    <div class="text-xs text-slate-500 mt-1">${pop.consumption.work}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">收入水平（月均）</div>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-slate-600 w-10">居住</span>
+                                    <div class="flex-1 h-6 bg-slate-800 rounded overflow-hidden relative">
+                                        <div class="h-full bg-blue-500/60 rounded flex items-center px-2" style="width: ${Math.min(pop.income.live / 300 * 100, 100)}%"><span class="text-xs text-white">¥${pop.income.live.toLocaleString()}</span></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-slate-600 w-10">工作</span>
+                                    <div class="flex-1 h-6 bg-slate-800 rounded overflow-hidden relative">
+                                        <div class="h-full bg-amber-500/60 rounded flex items-center px-2" style="width: ${Math.min(pop.income.work / 300 * 100, 100)}%"><span class="text-xs text-white">¥${pop.income.work.toLocaleString()}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">职业分布</div>
+                            <div class="flex gap-3">
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">居住</div>
+                                    <div class="h-4 rounded-full overflow-hidden flex text-xs">
+                                        ${occLabels.map((label, i) => `<div class="bg-blue-${500 - i*100} flex items-center justify-center text-white" style="width: ${pop.occupation.live[i]}%">${label}</div>`).join('')}
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">工作</div>
+                                    <div class="h-4 rounded-full overflow-hidden flex text-xs">
+                                        ${occLabels.map((label, i) => `<div class="bg-amber-${500 - i*100} flex items-center justify-center text-white" style="width: ${pop.occupation.work[i]}%">${label}</div>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 mb-2">行业分布 TOP4</div>
+                            <div class="space-y-2">
+                                ${indLabels.map((industry, i) => `
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs text-slate-400 w-8">${industry}</span>
+                                        <div class="flex-1 flex gap-1">
+                                            <div class="h-3 bg-blue-500 rounded-sm" style="width: ${pop.industry.live[i]}%"></div>
+                                            <div class="h-3 bg-amber-500 rounded-sm" style="width: ${pop.industry.work[i]}%"></div>
+                                        </div>
+                                        <span class="text-xs text-slate-600 w-16 text-right">${pop.industry.live[i]}% / ${pop.industry.work[i]}%</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="flex gap-4 mt-1 text-xs"><span class="text-blue-400">■ 居住</span><span class="text-amber-400">■ 工作</span></div>
+                        </div>
+
+                        <div>
+                            <div class="text-xs text-slate-500 mb-2">人生阶段</div>
+                            <div class="flex gap-3">
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">居住</div>
+                                    <div class="space-y-1">
+                                        ${lifeLabels.map((label, i) => `
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-xs text-slate-500 w-12">${label}</span>
+                                                <div class="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden"><div class="h-full rounded-full" style="width: ${pop.lifeStage.live[i]}%; background: ${['#60a5fa','#3b82f6','#2563eb','#1d4ed8'][i]}"></div></div>
+                                                <span class="text-xs text-white w-8 text-right">${pop.lifeStage.live[i]}%</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-xs text-slate-600 text-center mb-1">工作</div>
+                                    <div class="space-y-1">
+                                        ${lifeLabels.map((label, i) => `
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-xs text-slate-500 w-12">${label}</span>
+                                                <div class="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden"><div class="h-full rounded-full" style="width: ${pop.lifeStage.work[i]}%; background: ${['#fbbf24','#f59e0b','#d97706','#b45309'][i]}"></div></div>
+                                                <span class="text-xs text-white w-8 text-right">${pop.lifeStage.work[i]}%</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-university text-red-400 text-xs"></i> 同业分布</div>
+                        <div class="competitor-dist-card">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-sm font-medium text-white">同业网点总计</span>
+                                <span class="text-lg font-bold text-red-400">${compTotal} 家</span>
+                            </div>
+                            <div class="space-y-2">
+                                ${compTypes.map(ct => `
+                                    <div class="competitor-type-bar">
+                                        <span class="type-label">${ct.type}</span>
+                                        <div class="type-track">
+                                            <div class="type-fill" style="width: ${ct.percent}%; background: ${ct.color}30; color: ${ct.color}; border: 1px solid ${ct.color}50;">${ct.count}家</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-chart-line text-purple-400 text-xs"></i> 同业变更状况（最近一年）</div>
+                        <div class="trend-chart-container mb-4">
+                            <canvas id="competitorTrendChart"></canvas>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table class="change-table">
+                                <thead>
+                                    <tr>
+                                        <th style="position: sticky; left: 0; background: rgba(30, 41, 59, 0.95); z-index: 2;">月份</th>
+                                        <th colspan="3" style="color: #ef4444;">国有行</th>
+                                        <th colspan="3" style="color: #f59e0b;">股份行</th>
+                                        <th colspan="3" style="color: #3b82f6;">城商行</th>
+                                        <th colspan="3" style="color: #10b981;">农商行</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="position: sticky; left: 0; background: rgba(30, 41, 59, 0.95); z-index: 2;"></th>
+                                        <th>新增</th><th>退出</th><th>净变化</th>
+                                        <th>新增</th><th>退出</th><th>净变化</th>
+                                        <th>新增</th><th>退出</th><th>净变化</th>
+                                        <th>新增</th><th>退出</th><th>净变化</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${admin.competitors.changes.map(c => {
+                                        const types = ['国有行', '股份行', '城商行', '农商行'];
+                                        const typeColors = { '国有行': '#ef4444', '股份行': '#f59e0b', '城商行': '#3b82f6', '农商行': '#10b981' };
+                                        return `
+                                    <tr>
+                                        <td style="position: sticky; left: 0; background: rgba(15, 23, 42, 0.98); z-index: 1; font-weight: 500;">${c.month}</td>
+                                        ${types.map(t => {
+                                            const d = c[t];
+                                            return `
+                                            <td class="text-green-400">+${d.added}</td>
+                                            <td class="text-red-400">-${d.removed}</td>
+                                            <td class="${d.net > 0 ? 'net-positive' : d.net < 0 ? 'net-negative' : 'net-zero'}" style="font-weight: 600;">${d.net > 0 ? '+' : ''}${d.net}</td>
+                                            `;
+                                        }).join('')}
+                                    </tr>
+                                    `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="flex gap-4 mt-3 text-xs justify-center">
+                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background: #ef4444;"></span>国有行</span>
+                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background: #f59e0b;"></span>股份行</span>
+                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background: #3b82f6;"></span>城商行</span>
+                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background: #10b981;"></span>农商行</span>
+                        </div>
+                    </div>
+
+                    <!-- 重点区域覆盖趋势 -->
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-draw-polygon text-cyan-400 text-xs"></i> 重点区域覆盖趋势</div>
+                        <div class="grid grid-cols-4 gap-2 mb-4">
+                            <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                <div class="text-lg font-bold text-white">${admin.zoneCoverage.totalZones}</div>
+                                <div class="text-xs text-slate-500">重点区域总数</div>
+                            </div>
+                            <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                <div class="text-lg font-bold text-green-400">${admin.zoneCoverage.coveredZones}</div>
+                                <div class="text-xs text-slate-500">已覆盖</div>
+                            </div>
+                            <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                <div class="text-lg font-bold text-red-400">${admin.zoneCoverage.uncoveredZones}</div>
+                                <div class="text-xs text-slate-500">未覆盖</div>
+                            </div>
+                            <div class="text-center p-2.5 bg-slate-800/40 rounded-xl">
+                                <div class="text-lg font-bold ${admin.zoneCoverage.coverageRate >= 80 ? 'text-green-400' : admin.zoneCoverage.coverageRate >= 50 ? 'text-amber-400' : 'text-red-400'}">${admin.zoneCoverage.coverageRate}%</div>
+                                <div class="text-xs text-slate-500">覆盖率</div>
+                            </div>
+                        </div>
+                        <div class="trend-chart-container mb-4">
+                            <canvas id="zoneCoverageTrendChart"></canvas>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-xs text-slate-500 mb-2">重点区域明细</div>
+                            ${admin.zoneCoverage.zones.map(z => `
+                                <div class="p-3 bg-slate-800/40 rounded-xl">
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-sm font-medium text-white">${z.name}</span>
+                                            <span class="tag ${z.type === '开发区' ? 'tag-purple' : 'tag-cyan'}" style="${z.type === '强县富镇' ? 'background:rgba(6,182,212,0.12);color:#22d3ee;' : ''}">${z.subType}</span>
+                                        </div>
+                                        <span class="tag ${z.status === '已覆盖' ? 'tag-green' : 'tag-red'}">${z.status}</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-xs text-slate-500">
+                                        <span>我行网点 ${z.ourBranches}家</span>
+                                        <span class="text-slate-700">|</span>
+                                        <span>自营占比 ${z.selfOperatedRatio}%</span>
+                                        <span class="text-slate-700">|</span>
+                                        <span>同业 ${z.competitorBranches}家</span>
+                                        <span class="text-slate-700">|</span>
+                                        <span class="${z.coverageRate >= 60 ? 'text-green-400' : 'text-red-400'}">覆盖率 ${z.coverageRate}%</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2.5 mt-5">
+                        <button onclick="showExportModal('admin', '行政区划报告')" class="btn btn-primary flex-1 justify-center py-2.5">
+                            <i class="fas fa-file-alt mr-2" style="font-size:10px"></i> 导出区划报告
+                        </button>
+                        <button onclick="generateAIReport('admin', '${admin.id}')" class="btn btn-secondary flex-1 justify-center py-2.5">
+                            <i class="fas fa-robot mr-2" style="font-size:10px"></i> AI分析报告
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            panel.classList.add('open');
+            setTimeout(() => {
+                initCompetitorTrendChart(admin);
+                initZoneCoverageTrendChart(admin);
+            }, 300);
+        }
+
+        function initCompetitorTrendChart(admin) {
+            const ctx = document.getElementById('competitorTrendChart');
+            if (!ctx) return;
+
+            const types = ['国有行', '股份行', '城商行', '农商行'];
+            const typeColors = { '国有行': '#ef4444', '股份行': '#f59e0b', '城商行': '#3b82f6', '农商行': '#10b981' };
+            const typeBgColors = { '国有行': 'rgba(239, 68, 68, 0.6)', '股份行': 'rgba(245, 158, 11, 0.6)', '城商行': 'rgba(59, 130, 246, 0.6)', '农商行': 'rgba(16, 185, 129, 0.6)' };
+
+            // 按银行类型分组，每组包含新增和退出两个数据集
+            const datasets = [];
+            types.forEach(t => {
+                datasets.push({
+                    label: t + ' 新增',
+                    data: admin.competitors.changes.map(c => c[t].added),
+                    backgroundColor: typeBgColors[t],
+                    borderColor: typeColors[t],
+                    borderWidth: 1,
+                    borderRadius: 3,
+                    barPercentage: 0.7,
+                    categoryPercentage: 0.8
+                });
+                datasets.push({
+                    label: t + ' 退出',
+                    data: admin.competitors.changes.map(c => -c[t].removed),
+                    backgroundColor: typeBgColors[t].replace('0.6', '0.25'),
+                    borderColor: typeColors[t],
+                    borderWidth: 1,
+                    borderRadius: 3,
+                    barPercentage: 0.7,
+                    categoryPercentage: 0.8
+                });
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: admin.competitors.changes.map(c => c.month),
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { 
+                            position: 'top', 
+                            labels: { 
+                                color: '#64748b', 
+                                font: { size: 10 }, 
+                                boxWidth: 10, 
+                                padding: 8,
+                                usePointStyle: true,
+                                pointStyle: 'rectRounded'
+                            } 
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) label += ': ';
+                                    const val = context.parsed.y;
+                                    return label + Math.abs(val) + '家';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { 
+                            grid: { color: 'rgba(30, 41, 59, 0.3)' }, 
+                            ticks: { color: '#64748b', font: { size: 9 }, maxRotation: 45, minRotation: 45 } 
+                        },
+                        y: { 
+                            beginAtZero: true,
+                            grid: { color: 'rgba(30, 41, 59, 0.3)' }, 
+                            ticks: { 
+                                color: '#64748b', 
+                                font: { size: 10 },
+                                callback: function(value) { return Math.abs(value); }
+                            } 
+                        }
+                    }
+                }
+            });
+        }
+
+        function closeAdminDetail() {
+            document.getElementById('adminDetailPanel').classList.remove('open');
+        }
+
+        function toggleLandLegend() {
+            document.getElementById('landLegend').classList.toggle('open');
+        }
+
+        function showAdminList() {
+            const panel = document.getElementById('leftPanel');
+            const content = document.getElementById('leftPanelContent');
+            content.innerHTML = `
+                <div class="animate-fade-in">
+                    <div class="flex items-center justify-between mb-5">
+                        <h2 class="text-base font-bold text-white"><i class="fas fa-map-marked-alt text-cyan-400 mr-2 text-sm"></i>行政区划</h2>
+                        <button onclick="closeLeftPanel()" class="text-slate-500 hover:text-white w-7 h-7 rounded-lg hover:bg-slate-800 flex items-center justify-center transition-colors"><i class="fas fa-times text-sm"></i></button>
+                    </div>
+                    <div class="mb-4"><input type="text" class="search-input" placeholder="搜索行政区划..." oninput="filterAdminDivisions(this.value)"></div>
+                    <div class="mb-4 p-3 bg-slate-800/40 rounded-xl border border-slate-700/30">
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div><div class="text-base font-bold text-white">${mockData.adminDivisions.length}</div><div class="text-xs text-slate-600">行政区</div></div>
+                            <div><div class="text-base font-bold text-cyan-400">${mockData.adminDivisions.reduce((a,b) => a + b.ourBranches, 0)}</div><div class="text-xs text-slate-600">我行网点</div></div>
+                            <div><div class="text-base font-bold text-red-400">${mockData.adminDivisions.reduce((a,b) => a + b.competitors.total, 0)}</div><div class="text-xs text-slate-600">同业网点</div></div>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5" id="adminList">
+                        ${mockData.adminDivisions.map(admin => `
+                            <div class="list-item" onclick="showAdminDetail(mockData.adminDivisions.find(a => a.id === '${admin.id}'))">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="font-medium text-white text-sm">${admin.name}</span>
+                                    <span class="tag bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 text-xs">${admin.code}</span>
+                                </div>
+                                <div class="text-xs text-slate-500 mb-1.5">面积 ${admin.area} km² | 周长 ${admin.perimeter} km</div>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="text-slate-600">我行 ${admin.ourBranches}家</span>
+                                    <span class="text-slate-700">|</span>
+                                    <span class="text-slate-600">同业 ${admin.competitors.total}家</span>
+                                    <span class="text-slate-700">|</span>
+                                    <span class="text-slate-600">人口 ${(admin.population.resident / 10000).toFixed(0)}万</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            panel.classList.add('open');
+
+            // 初始化五大行占比饼图
+            setTimeout(() => {
+                const pieCanvas = document.getElementById('bigFivePieChart');
+                if (pieCanvas && zoneBigFive.length > 0) {
+                    const stats = getBigFiveStats(zoneBigFive);
+                    new Chart(pieCanvas, {
+                        type: 'doughnut',
+                        data: {
+                            labels: stats.map(s => s.bank),
+                            datasets: [{
+                                data: stats.map(s => s.count),
+                                backgroundColor: stats.map(s => s.color),
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            cutout: '55%',
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const s = stats[context.dataIndex];
+                                            return s.bank + ': ' + s.count + '家 (' + s.percent + '%)';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }, 100);
+        }
+
+        function filterAdminDivisions(query) {
+            const items = document.querySelectorAll('#adminList .list-item');
+            items.forEach(item => {
+                item.style.display = item.textContent.toLowerCase().includes(query.toLowerCase()) ? 'block' : 'none';
+            });
+        }
+
+</script>
 </body>
 </html>
