@@ -328,15 +328,47 @@
         }
         .info-popup.show { display: block; }
 
-        /* 城市选择器 */
+        /* 行政区划选择器 - 下拉树 */
         .city-badge {
-            display: flex; align-items: center; gap: 8px;
-            padding: 6px 14px; background: rgba(30, 41, 59, 0.6);
+            position: relative;
+            display: flex; align-items: center; gap: 6px;
+            padding: 6px 12px; background: rgba(30, 41, 59, 0.6);
             border: 1px solid rgba(51, 65, 85, 0.3); border-radius: 10px;
-            font-size: 13px; color: #94a3b8; cursor: pointer; transition: all 0.2s;
+            font-size: 13px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;
         }
         .city-badge:hover { background: rgba(51, 65, 85, 0.4); border-color: rgba(71, 85, 105, 0.5); }
         .city-badge i { color: #3b82f6; }
+        .city-badge .badge-text { color: #e2e8f0; font-size: 13px; white-space: nowrap; }
+        .city-badge .chevron { transition: transform 0.2s; }
+        .city-badge.open .chevron { transform: rotate(180deg); }
+
+        /* 下拉树面板 */
+        .admin-tree-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            min-width: 200px;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(51, 65, 85, 0.4);
+            border-radius: 10px;
+            padding: 6px;
+            z-index: 500;
+            display: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .admin-tree-dropdown.show { display: block; }
+        .tree-node {
+            display: flex; align-items: center; gap: 6px;
+            padding: 7px 10px; border-radius: 6px;
+            font-size: 13px; color: #cbd5e1; cursor: pointer; transition: all 0.15s;
+        }
+        .tree-node:hover { background: rgba(51, 65, 85, 0.5); color: #fff; }
+        .tree-node.selected { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .tree-node .tree-toggle { width: 14px; text-align: center; font-size: 10px; color: #64748b; transition: transform 0.2s; }
+        .tree-node .tree-toggle.expanded { transform: rotate(90deg); }
+        .tree-children { display: none; padding-left: 20px; }
+        .tree-children.show { display: block; }
 
         /* 快捷工具栏 */
         .quick-tools {
@@ -555,110 +587,6 @@
             bottom: 36px;
         }
 
-        /* 行政区划区域 - 视觉上淡化，hover时高亮，点击按钮交互 */
-        .admin-area {
-            position: absolute;
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            background: rgba(148, 163, 184, 0.01);
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            cursor: default;
-        }
-        .admin-area:hover {
-            border-color: rgba(6, 182, 212, 0.5);
-            background: rgba(6, 182, 212, 0.04);
-            box-shadow: 0 0 12px rgba(6, 182, 212, 0.08);
-        }
-        .admin-area .admin-label {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: rgba(100, 116, 139, 0.5);
-            color: rgba(255,255,255,0.6);
-            padding: 2px 8px;
-            border-radius: 5px;
-            font-size: 11px;
-            font-weight: 500;
-            white-space: nowrap;
-            transition: all 0.3s ease;
-            pointer-events: none;
-            user-select: none;
-        }
-        .admin-area:hover .admin-label {
-            background: rgba(6, 182, 212, 0.85);
-            color: white;
-            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
-        }
-        .admin-area .admin-detail-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 26px;
-            height: 26px;
-            border-radius: 6px;
-            background: rgba(6, 182, 212, 0.85);
-            color: white;
-            border: none;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 11px;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
-            z-index: 10;
-            pointer-events: auto;
-        }
-        .admin-area:hover .admin-detail-btn {
-            display: flex;
-        }
-        .admin-area .admin-detail-btn:hover {
-            background: rgba(6, 182, 212, 1);
-            transform: scale(1.1);
-        }
-        .admin-area .admin-detail-btn .tooltip {
-            position: absolute;
-            top: -28px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e293b;
-            border: 1px solid rgba(51, 65, 85, 0.5);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s;
-            color: #e2e8f0;
-        }
-        .admin-area .admin-detail-btn:hover .tooltip {
-            opacity: 1;
-            top: -32px;
-        }
-        .admin-area .admin-stats {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            display: flex;
-            gap: 6px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            user-select: none;
-        }
-        .admin-area:hover .admin-stats {
-            opacity: 1;
-        }
-        .admin-area .admin-stats .stat-chip {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(51, 65, 85, 0.4);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            color: #22d3ee;
-        }
-
 
         /* 土地类型图例 */
         .land-legend {
@@ -776,6 +704,45 @@
             right: 0;
         }
 
+        /* 行政区划详情 - 最小化浮条 */
+        .admin-minibar {
+            position: fixed;
+            top: 200px;
+            right: -44px;
+            width: 36px;
+            background: rgba(6, 182, 212, 0.15);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+            padding: 10px 0;
+            cursor: grab;
+            z-index: 110;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: -2px 0 12px rgba(6, 182, 212, 0.15);
+            user-select: none;
+        }
+        .admin-minibar.show { right: 0; }
+        .admin-minibar:hover {
+            background: rgba(6, 182, 212, 0.25);
+            border-color: rgba(6, 182, 212, 0.6);
+        }
+        .admin-minibar.dragging { cursor: grabbing; transition: none; }
+        .admin-minibar .drag-handle {
+            width: 14px; height: 2px; background: rgba(103, 232, 249, 0.35);
+            border-radius: 1px; flex-shrink: 0;
+        }
+        .admin-minibar .minibar-icon { color: #22d3ee; font-size: 14px; }
+        .admin-minibar .minibar-text {
+            writing-mode: vertical-rl; text-orientation: upright;
+            font-size: 13px; font-weight: 600; color: #67e8f9;
+            letter-spacing: 2px; user-select: none;
+        }
+
         /* 土地类型环形图 */
         .land-type-ring {
             width: 100px;
@@ -851,10 +818,23 @@
     <!-- 顶部信息栏 -->
     <div class="top-bar">
         <div class="flex items-center gap-4">
-            <div class="city-badge">
+            <div class="city-badge" id="cityBadge" onclick="toggleAdminTree(event)">
                 <i class="fas fa-map-marker-alt"></i>
-                <span>北京市</span>
-                <i class="fas fa-chevron-down text-xs ml-1"></i>
+                <span class="badge-text" id="cityBadgeText">北京市</span>
+                <i class="fas fa-chevron-down text-xs chevron"></i>
+                <div class="admin-tree-dropdown" id="adminTreeDropdown" onclick="event.stopPropagation()">
+                    <div class="tree-node" onclick="selectAdminNode('AD-000')">
+                        <span class="tree-toggle" onclick="toggleTreeNode(event, 'tree-beijing')"><i class="fas fa-caret-right"></i></span>
+                        <span>北京市</span>
+                    </div>
+                    <div class="tree-children" id="tree-beijing">
+                        <div class="tree-node" onclick="selectAdminNode('AD-001')"><span class="tree-toggle"></span>海淀区</div>
+                        <div class="tree-node" onclick="selectAdminNode('AD-002')"><span class="tree-toggle"></span>朝阳区</div>
+                        <div class="tree-node" onclick="selectAdminNode('AD-003')"><span class="tree-toggle"></span>西城区</div>
+                        <div class="tree-node" onclick="selectAdminNode('AD-004')"><span class="tree-toggle"></span>通州区</div>
+                        <div class="tree-node" onclick="selectAdminNode('AD-005')"><span class="tree-toggle"></span>大兴区</div>
+                    </div>
+                </div>
             </div>
             <div class="h-4 w-px bg-slate-700"></div>
             <span class="text-xs text-slate-500">数据更新: 2026-05-12 14:30</span>
@@ -888,9 +868,6 @@
 
         <!-- 重点区域层 -->
         <div id="zoneLayer"></div>
-
-        <!-- 行政区划层 -->
-        <div id="adminLayer"></div>
 
         <!-- 同业网点层 -->
         <div id="competitorLayer"></div>
@@ -1000,6 +977,14 @@
     <!-- 行政区划详情面板 -->
     <div class="admin-detail-panel" id="adminDetailPanel">
         <div id="adminDetailContent"></div>
+    </div>
+
+    <!-- 行政区划详情 - 最小化浮条 -->
+    <div class="admin-minibar" id="adminMinibar">
+        <div class="drag-handle"></div>
+        <i class="fas fa-chevron-left minibar-icon"></i>
+        <span class="minibar-text" id="minibarText">海淀区</span>
+        <div class="drag-handle"></div>
     </div>
 
     <!-- 栅格详情面板 -->
@@ -1436,10 +1421,91 @@
             ],
 
             adminDivisions: [
+                {
+                    id: 'AD-000',
+                    name: '北京市',
+                    code: '110000',
+                    level: 'city',
+                    area: 16410.0,
+                    perimeter: 485.6,
+                    landTypes: [
+                        { type: '耕地', area: 2856.4, color: '#22c55e' },
+                        { type: '水体', area: 312.8, color: '#3b82f6' },
+                        { type: '林地', area: 6528.5, color: '#10b981' },
+                        { type: '湿地', area: 586.2, color: '#06b6d4' },
+                        { type: '人造地表', area: 6126.1, color: '#f59e0b' }
+                    ],
+                    business: {
+                        sme: 62500,
+                        retail: 18500,
+                        transport: 186,
+                        commercial: 482
+                    },
+                    population: {
+                        resident: 21893000,
+                        work: 13280000,
+                        maleRatio: { live: 51, work: 54 },
+                        ageDist: { live: [12, 32, 28, 18, 10], work: [10, 40, 32, 14, 4] },
+                        education: { live: [22, 42, 26], work: [12, 38, 40] },
+                        consumption: { live: '高', work: '高' },
+                        income: { live: 14200, work: 21500 },
+                        occupation: { live: [32, 25, 18, 25], work: [52, 20, 12, 16] },
+                        industry: { live: [25, 22, 16, 14], work: [38, 28, 14, 11] },
+                        lifeStage: { live: [22, 28, 32, 18], work: [30, 32, 30, 8] }
+                    },
+                    competitors: {
+                        total: 462,
+                        byType: { '国有行': 156, '股份行': 142, '城商行': 118, '农商行': 46 },
+                        changes: [
+                            { month: '2025-07', '国有行': { added: 3, removed: 1, net: 2 }, '股份行': { added: 2, removed: 1, net: 1 }, '城商行': { added: 4, removed: 2, net: 2 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2025-08', '国有行': { added: 2, removed: 2, net: 0 }, '股份行': { added: 3, removed: 1, net: 2 }, '城商行': { added: 3, removed: 1, net: 2 }, '农商行': { added: 1, removed: 0, net: 1 } },
+                            { month: '2025-09', '国有行': { added: 1, removed: 1, net: 0 }, '股份行': { added: 2, removed: 2, net: 0 }, '城商行': { added: 4, removed: 2, net: 2 }, '农商行': { added: 2, removed: 1, net: 1 } },
+                            { month: '2025-10', '国有行': { added: 3, removed: 0, net: 3 }, '股份行': { added: 1, removed: 1, net: 0 }, '城商行': { added: 2, removed: 3, net: -1 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2025-11', '国有行': { added: 2, removed: 1, net: 1 }, '股份行': { added: 3, removed: 2, net: 1 }, '城商行': { added: 5, removed: 1, net: 4 }, '农商行': { added: 0, removed: 1, net: -1 } },
+                            { month: '2025-12', '国有行': { added: 1, removed: 2, net: -1 }, '股份行': { added: 2, removed: 1, net: 1 }, '城商行': { added: 3, removed: 2, net: 1 }, '农商行': { added: 2, removed: 0, net: 2 } },
+                            { month: '2026-01', '国有行': { added: 3, removed: 1, net: 2 }, '股份行': { added: 1, removed: 2, net: -1 }, '城商行': { added: 4, removed: 1, net: 3 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2026-02', '国有行': { added: 2, removed: 1, net: 1 }, '股份行': { added: 3, removed: 1, net: 2 }, '城商行': { added: 2, removed: 2, net: 0 }, '农商行': { added: 2, removed: 1, net: 1 } },
+                            { month: '2026-03', '国有行': { added: 1, removed: 2, net: -1 }, '股份行': { added: 2, removed: 1, net: 1 }, '城商行': { added: 4, removed: 2, net: 2 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2026-04', '国有行': { added: 3, removed: 1, net: 2 }, '股份行': { added: 2, removed: 2, net: 0 }, '城商行': { added: 3, removed: 1, net: 2 }, '农商行': { added: 2, removed: 0, net: 2 } },
+                            { month: '2026-05', '国有行': { added: 2, removed: 1, net: 1 }, '股份行': { added: 3, removed: 1, net: 2 }, '城商行': { added: 4, removed: 2, net: 2 }, '农商行': { added: 1, removed: 1, net: 0 } },
+                            { month: '2026-06', '国有行': { added: 1, removed: 2, net: -1 }, '股份行': { added: 2, removed: 1, net: 1 }, '城商行': { added: 3, removed: 1, net: 2 }, '农商行': { added: 2, removed: 1, net: 1 } }
+                        ]
+                    },
+                    zoneCoverage: {
+                        totalZones: 5,
+                        coveredZones: 4,
+                        uncoveredZones: 1,
+                        coverageRate: 80.0,
+                        trend: [
+                            { month: '2025-07', covered: 3, uncovered: 2, coverageRate: 60.0, added: 0, removed: 0 },
+                            { month: '2025-08', covered: 3, uncovered: 2, coverageRate: 60.0, added: 0, removed: 0 },
+                            { month: '2025-09', covered: 4, uncovered: 1, coverageRate: 80.0, added: 1, removed: 0 },
+                            { month: '2025-10', covered: 4, uncovered: 1, coverageRate: 80.0, added: 0, removed: 0 },
+                            { month: '2025-11', covered: 4, uncovered: 1, coverageRate: 80.0, added: 0, removed: 0 },
+                            { month: '2025-12', covered: 4, uncovered: 1, coverageRate: 80.0, added: 0, removed: 0 },
+                            { month: '2026-01', covered: 4, uncovered: 1, coverageRate: 80.0, added: 0, removed: 0 },
+                            { month: '2026-02', covered: 4, uncovered: 1, coverageRate: 80.0, added: 0, removed: 0 },
+                            { month: '2026-03', covered: 4, uncovered: 1, coverageRate: 80.0, added: 0, removed: 0 },
+                            { month: '2026-04', covered: 4, uncovered: 1, coverageRate: 80.0, added: 0, removed: 0 },
+                            { month: '2026-05', covered: 4, uncovered: 1, coverageRate: 80.0, added: 0, removed: 0 },
+                            { month: '2026-06', covered: 4, uncovered: 1, coverageRate: 80.0, added: 0, removed: 0 }
+                        ],
+                        zones: [
+                            { name: '中关村科学城', type: '开发区', subType: '国家级高新技术开发区', status: '已覆盖', ourBranches: 5, selfOperatedRatio: 60, competitorBranches: 18 },
+                            { name: '经济技术开发区', type: '开发区', subType: '国家级经济技术开发区', status: '已覆盖', ourBranches: 3, selfOperatedRatio: 67, competitorBranches: 8 },
+                            { name: 'CBD商务区', type: '开发区', subType: '省级商务区', status: '已覆盖', ourBranches: 4, selfOperatedRatio: 75, competitorBranches: 12 },
+                            { name: '金融街核心区', type: '开发区', subType: '省级经济开发区', status: '已覆盖', ourBranches: 2, selfOperatedRatio: 50, competitorBranches: 6 },
+                            { name: '未来科学城', type: '开发区', subType: '科技园区', status: '未覆盖', ourBranches: 0, selfOperatedRatio: 0, competitorBranches: 3 }
+                        ]
+                    },
+                    ourBranches: 86,
+                    keyZones: ['中关村科学城', '经济技术开发区', 'CBD商务区', '金融街核心区', '未来科学城']
+                },
                 { 
                     id: 'AD-001', 
                     name: '海淀区', 
                     code: '110108',
+                    level: 'district',
                     x: 35, y: 30, w: 18, h: 22,
                     area: 431.0,
                     perimeter: 128.5,
@@ -1517,6 +1583,7 @@
                     id: 'AD-002', 
                     name: '朝阳区', 
                     code: '110105',
+                    level: 'district',
                     x: 58, y: 32, w: 20, h: 25,
                     area: 470.8,
                     perimeter: 142.3,
@@ -1593,6 +1660,7 @@
                     id: 'AD-003', 
                     name: '西城区', 
                     code: '110102',
+                    level: 'district',
                     x: 30, y: 48, w: 12, h: 14,
                     area: 50.7,
                     perimeter: 42.8,
@@ -1669,6 +1737,7 @@
                     id: 'AD-004', 
                     name: '通州区', 
                     code: '110112',
+                    level: 'district',
                     x: 75, y: 50, w: 18, h: 20,
                     area: 906.0,
                     perimeter: 185.6,
@@ -1745,6 +1814,7 @@
                     id: 'AD-005', 
                     name: '大兴区', 
                     code: '110115',
+                    level: 'district',
                     x: 68, y: 72, w: 20, h: 18,
                     area: 1036.0,
                     perimeter: 198.4,
@@ -1880,7 +1950,8 @@
                     !e.target.closest('.sidebar') && !e.target.closest('.legend-card') &&
                     !e.target.closest('.grid-detail-panel') && !e.target.closest('.info-popup') &&
                     !e.target.closest('.compare-panel') && !e.target.closest('.compare-report-panel') &&
-                    !e.target.closest('.admin-detail-panel')) {
+                    !e.target.closest('.admin-detail-panel') && !e.target.closest('.admin-minibar') &&
+                    !e.target.closest('.city-badge')) {
                     closeSidePanel();
                     closeLeftPanel();
                     closeGridDetail();
@@ -1892,13 +1963,14 @@
             document.getElementById('chatInput').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') sendMessage();
             });
+
+            initMinibarDrag();
         }
 
         // ============ 地图渲染 ============
         function renderMap() {
             renderGrids();
             renderZones();
-            renderAdminDivisions();
             renderBranches();
             renderRecommends();
             renderCompetitors();
@@ -2501,6 +2573,12 @@
             selectedRecommend = rec;
             const panel = document.getElementById('sidePanel');
             const content = document.getElementById('sidePanelContent');
+
+            // 查找推荐点所属的重点区域，用于展示网点变更明细
+            const zone = mockData.zones.find(z =>
+                rec.x >= z.x && rec.x <= z.x + z.w && rec.y >= z.y && rec.y <= z.y + z.h
+            ) || mockData.zones[0];
+            const zoneBigFive = getZoneBigFive(zone.id);
 
             // 计算距离当前推荐点位最近的3个我行网点
             const nearbyBranches = mockData.branches.map(b => {
@@ -3216,6 +3294,36 @@
                                 <div class="stat-label">同业网点数量</div>
                             </div>
                         </div>
+
+                        <!-- 当前网点列表 -->
+                        ${zone.branchChanges.currentBranches.length > 0 ? `
+                        <div>
+                            <div class="text-xs text-slate-500 mb-2">当前运营网点</div>
+                            <div class="space-y-2">
+                                ${zone.branchChanges.currentBranches.map(b => `
+                                    <div class="p-3 bg-slate-800/40 rounded-xl">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="text-sm font-medium text-white">${b.name}</span>
+                                            <span class="tag ${b.attr === '自营' ? 'tag-blue' : 'tag-amber'} text-xs">${b.attr}</span>
+                                        </div>
+                                        <div class="text-xs text-slate-500 mb-1">编号: ${b.code} | ${b.type}</div>
+                                        <div class="text-xs text-slate-400 mb-1">${b.address}</div>
+                                        <div class="flex items-center gap-2 text-xs">
+                                            <span class="text-green-400"><i class="fas fa-check-circle mr-1" style="font-size:9px"></i>${b.status}</span>
+                                            <span class="text-slate-700">|</span>
+                                            <span class="text-slate-600">开业: ${b.openDate}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        ` : `
+                        <div class="p-4 bg-red-500/5 rounded-xl border border-red-500/10 text-center">
+                            <i class="fas fa-exclamation-circle text-red-400 mb-2 block" style="font-size:20px"></i>
+                            <div class="text-sm text-red-400 font-medium">当前区域无我行网点</div>
+                            <div class="text-xs text-slate-500 mt-1">该区域处于未覆盖状态</div>
+                        </div>
+                        `}
                     </div>
 
                     <!-- 重点同业网点明细（五大行） -->
@@ -3294,36 +3402,6 @@
                         <div class="trend-chart-container mb-4">
                             <canvas id="zoneBranchChangeChart"></canvas>
                         </div>
-
-                        <!-- 当前网点列表 -->
-                        ${zone.branchChanges.currentBranches.length > 0 ? `
-                        <div class="mb-4">
-                            <div class="text-xs text-slate-500 mb-2">当前运营网点</div>
-                            <div class="space-y-2">
-                                ${zone.branchChanges.currentBranches.map(b => `
-                                    <div class="p-3 bg-slate-800/40 rounded-xl">
-                                        <div class="flex items-center justify-between mb-1">
-                                            <span class="text-sm font-medium text-white">${b.name}</span>
-                                            <span class="tag ${b.attr === '自营' ? 'tag-blue' : 'tag-amber'} text-xs">${b.attr}</span>
-                                        </div>
-                                        <div class="text-xs text-slate-500 mb-1">编号: ${b.code} | ${b.type}</div>
-                                        <div class="text-xs text-slate-400 mb-1">${b.address}</div>
-                                        <div class="flex items-center gap-2 text-xs">
-                                            <span class="text-green-400"><i class="fas fa-check-circle mr-1" style="font-size:9px"></i>${b.status}</span>
-                                            <span class="text-slate-700">|</span>
-                                            <span class="text-slate-600">开业: ${b.openDate}</span>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                        ` : `
-                        <div class="mb-4 p-4 bg-red-500/5 rounded-xl border border-red-500/10 text-center">
-                            <i class="fas fa-exclamation-circle text-red-400 mb-2 block" style="font-size:20px"></i>
-                            <div class="text-sm text-red-400 font-medium">当前区域无我行网点</div>
-                            <div class="text-xs text-slate-500 mt-1">该区域处于未覆盖状态</div>
-                        </div>
-                        `}
 
                         <!-- 变更历史明细 -->
                         <div>
@@ -3503,7 +3581,13 @@
 
         function closeSidePanel() {
             document.getElementById('sidePanel').classList.remove('open');
-            document.getElementById('adminDetailPanel').classList.remove('open');
+            const adminPanel = document.getElementById('adminDetailPanel');
+            if (adminPanel.classList.contains('open') && currentAdminDetail) {
+                // 行政区划面板打开时，改为最小化（显示浮条）而非完全关闭
+                closeAdminDetail();
+            } else {
+                adminPanel.classList.remove('open');
+            }
             Object.values(chartInstances).forEach(chart => chart.destroy());
             chartInstances = {};
         }
@@ -4115,10 +4199,10 @@
         }
 
         // ============ 网点台账导出 ============
-        let zoneExportState = { scope: 'province', province: '', city: '', district: '', format: 'excel' };
+        let zoneExportState = { scope: 'province', province: '', city: '', district: '' };
 
         function openZoneExportModal() {
-            zoneExportState = { scope: 'province', province: '', city: '', district: '', format: 'excel' };
+            zoneExportState = { scope: 'province', province: '', city: '', district: '' };
             const content = document.getElementById('zoneExportModalContent');
             content.innerHTML = `
                 <div class="flex items-center justify-between mb-5">
@@ -4141,23 +4225,6 @@
                         <div id="zoneExportCascader" class="grid grid-cols-3 gap-2"></div>
                     </div>
 
-                    <div>
-                        <label class="block text-xs text-slate-500 mb-2 font-medium">导出格式</label>
-                        <div class="flex gap-2">
-                            <label class="flex-1 cursor-pointer">
-                                <input type="radio" name="zoneExportFormat" value="excel" checked class="hidden peer" onchange="zoneExportState.format=this.value">
-                                <div class="py-2 text-center text-xs rounded-lg border border-slate-700 bg-slate-800/50 text-slate-300 peer-checked:border-blue-500 peer-checked:bg-blue-500/15 peer-checked:text-blue-400 transition-colors">
-                                    <i class="fas fa-file-excel mr-1"></i> Excel
-                                </div>
-                            </label>
-                            <label class="flex-1 cursor-pointer">
-                                <input type="radio" name="zoneExportFormat" value="csv" class="hidden peer" onchange="zoneExportState.format=this.value">
-                                <div class="py-2 text-center text-xs rounded-lg border border-slate-700 bg-slate-800/50 text-slate-300 peer-checked:border-blue-500 peer-checked:bg-blue-500/15 peer-checked:text-blue-400 transition-colors">
-                                    <i class="fas fa-file-csv mr-1"></i> CSV
-                                </div>
-                            </label>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="flex justify-end gap-3 mt-7">
@@ -4220,47 +4287,27 @@
         }
 
         function executeZoneExport() {
-            const { scope, province, city, district, format } = zoneExportState;
+            const { scope, province, city, district } = zoneExportState;
             // 校验必填层级
             if (['province','city','district'].includes(scope) && !province) { showToast('请先选择省份', 'warning'); return; }
             if (['city','district'].includes(scope) && !city) { showToast('请先选择城市', 'warning'); return; }
             if (scope === 'district' && !district) { showToast('请先选择区县', 'warning'); return; }
 
             const scopeText = { national: '全国', province: `${province}全省`, city: `${province} ${city}`, district: `${province} ${city} ${district}` }[scope] || '全国';
-            const ext = format === 'excel' ? 'xlsx' : 'csv';
-            const filename = `网点台账_${scopeText.replace(/\s/g, '_')}.${ext}`;
 
-            // 生成示意性台账内容（以重点区域为主键）
-            const header = '区域名称,类型,小类标签,所属行政区划,覆盖状态,自营网点名称,自营网点编号,代理网点名称,代理网点编号,同业网点数量';
-            const rows = [
-                '经济技术开发区,开发区,国家级经开区,' + scopeText + ',已覆盖,经开区支行,BJ-001,经开区代理点,AG-101,8',
-                '中关村软件园,开发区,高新技术开发区,' + scopeText + ',已覆盖,软件园支行,BJ-002,,,-,5',
-                '未来科学城,开发区,科技园区,' + scopeText + ',未覆盖,,,,-,3',
-                '大兴国际机场临空经济区,开发区,临空经济区,' + scopeText + ',已覆盖,临空支行,BJ-003,机场代理点,AG-102,6'
-            ].join('\n');
-            const csvContent = '\uFEFF' + header + '\n' + rows;
-
-            if (format === 'excel') {
-                // Excel：用 HTML 表格生成 .xls 兼容文件
-                const htmlTable = `<table border="1"><tr><th>区域名称</th><th>类型</th><th>小类标签</th><th>所属行政区划</th><th>覆盖状态</th><th>自营网点名称</th><th>自营网点编号</th><th>代理网点名称</th><th>代理网点编号</th><th>同业网点数量</th></tr>
+            // 生成示意性台账内容（以重点区域为主键）Excel：用 HTML 表格生成 .xls 兼容文件
+            const htmlTable = `<table border="1"><tr><th>区域名称</th><th>类型</th><th>小类标签</th><th>所属行政区划</th><th>覆盖状态</th><th>自营网点名称</th><th>自营网点编号</th><th>代理网点名称</th><th>代理网点编号</th><th>同业网点数量</th></tr>
 <tr><td>经济技术开发区</td><td>开发区</td><td>国家级经开区</td><td>${scopeText}</td><td>已覆盖</td><td>经开区支行</td><td>BJ-001</td><td>经开区代理点</td><td>AG-101</td><td>8</td></tr>
 <tr><td>中关村软件园</td><td>开发区</td><td>高新技术开发区</td><td>${scopeText}</td><td>已覆盖</td><td>软件园支行</td><td>BJ-002</td><td>-</td><td>-</td><td>5</td></tr>
 <tr><td>未来科学城</td><td>开发区</td><td>科技园区</td><td>${scopeText}</td><td>未覆盖</td><td>-</td><td>-</td><td>-</td><td>-</td><td>3</td></tr>
 <tr><td>大兴国际机场临空经济区</td><td>开发区</td><td>临空经济区</td><td>${scopeText}</td><td>已覆盖</td><td>临空支行</td><td>BJ-003</td><td>机场代理点</td><td>AG-102</td><td>6</td></tr></table>`;
-                const blob = new Blob(['\uFEFF' + htmlTable], { type: 'application/vnd.ms-excel;charset=utf-8;' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url; a.download = filename.replace('.xlsx', '.xls');
-                document.body.appendChild(a); a.click(); document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            } else {
-                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url; a.download = filename;
-                document.body.appendChild(a); a.click(); document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }
+            const filename = `网点台账_${scopeText.replace(/\s/g, '_')}.xls`;
+            const blob = new Blob(['\uFEFF' + htmlTable], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = filename;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
 
             closeModal('zoneExportModal');
             showToast(`网点台账已导出（${scopeText}）`);
@@ -4690,7 +4737,10 @@
             renderMap();
             closeSidePanel();
             closeLeftPanel();
-            closeAdminDetail();
+            closeAdminDetailCompletely();
+            // 重置下拉树选择
+            document.getElementById('cityBadgeText').textContent = '北京市';
+            document.querySelectorAll('.tree-node').forEach(n => n.classList.remove('selected'));
         }
 
         function toggleFullscreen() {
@@ -5663,53 +5713,6 @@
         }
 
     
-        // ============ 行政区划渲染 ============
-        function renderAdminDivisions() {
-            const layer = document.getElementById('adminLayer');
-            if (!layer) return;
-            layer.innerHTML = '';
-
-            mockData.adminDivisions.forEach(admin => {
-                const area = document.createElement('div');
-                area.className = 'admin-area';
-                area.style.left = admin.x + '%';
-                area.style.top = admin.y + '%';
-                area.style.width = admin.w + '%';
-                area.style.height = admin.h + '%';
-
-                area.innerHTML = `
-                    <div class="admin-label">${admin.name}</div>
-                    <button class="admin-detail-btn" title="查看详情">
-                        <i class="fas fa-chart-bar"></i>
-                        <span class="tooltip">查看区划详情</span>
-                    </button>
-                    <div class="admin-stats">
-                        <div class="stat-chip"><i class="fas fa-building" style="font-size:8px"></i> ${admin.ourBranches}家</div>
-                        <div class="stat-chip"><i class="fas fa-university" style="font-size:8px"></i> ${admin.competitors.total}家同业</div>
-                    </div>
-                `;
-
-                // 鼠标进入时激活交互状态
-                area.addEventListener('mouseenter', function() {
-                    this.classList.add('hover-active');
-                });
-
-                // 鼠标离开时取消交互状态
-                area.addEventListener('mouseleave', function() {
-                    this.classList.remove('hover-active');
-                });
-
-                // 点击详情按钮打开面板
-                const detailBtn = area.querySelector('.admin-detail-btn');
-                detailBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    showAdminDetail(admin);
-                });
-
-                layer.appendChild(area);
-            });
-        }
-
         function showAdminDetail(admin) {
             closeSidePanel();
             closeLeftPanel();
@@ -5717,6 +5720,10 @@
             closeComparePanel();
             closeCompareReport();
             document.getElementById('infoPopup').classList.remove('show');
+
+            // 记录当前行政区划，隐藏浮条
+            currentAdminDetail = admin;
+            document.getElementById('adminMinibar').classList.remove('show');
 
             const panel = document.getElementById('adminDetailPanel');
             const content = document.getElementById('adminDetailContent');
@@ -5753,8 +5760,8 @@
                             </h2>
                             <p class="text-xs text-slate-500 mt-1">行政区划代码: ${admin.code}</p>
                         </div>
-                        <button onclick="closeAdminDetail()" class="text-slate-500 hover:text-white w-7 h-7 rounded-lg hover:bg-slate-800 flex items-center justify-center transition-colors">
-                            <i class="fas fa-times text-sm"></i>
+                        <button onclick="closeAdminDetail()" title="收起面板" class="text-slate-500 hover:text-white w-7 h-7 rounded-lg hover:bg-slate-800 flex items-center justify-center transition-colors">
+                            <i class="fas fa-chevron-right text-sm"></i>
                         </button>
                     </div>
 
@@ -6137,8 +6144,6 @@
                                         <span>自营占比 ${z.selfOperatedRatio}%</span>
                                         <span class="text-slate-700">|</span>
                                         <span>同业 ${z.competitorBranches}家</span>
-                                        <span class="text-slate-700">|</span>
-                                        <span class="${z.coverageRate >= 60 ? 'text-green-400' : 'text-red-400'}">覆盖率 ${z.coverageRate}%</span>
                                     </div>
                                 </div>
                             `).join('')}
@@ -6246,9 +6251,126 @@
             });
         }
 
+        // ============ 行政区划详情 - 最小化/恢复 ============
+        let currentAdminDetail = null;  // 记录当前查看的行政区划
+
         function closeAdminDetail() {
+            // 最小化：面板滑出，显示浮条
             document.getElementById('adminDetailPanel').classList.remove('open');
+            const minibar = document.getElementById('adminMinibar');
+            if (currentAdminDetail) {
+                document.getElementById('minibarText').textContent = currentAdminDetail.name;
+            }
+            // 浮条垂直居中
+            requestAnimationFrame(() => {
+                minibar.style.top = Math.max(60, (window.innerHeight - minibar.offsetHeight) / 2) + 'px';
+            });
+            minibar.classList.add('show');
         }
+
+        // ============ 浮条拖拽 ============
+        function initMinibarDrag() {
+            const minibar = document.getElementById('adminMinibar');
+            let isDragging = false;
+            let startY = 0;
+            let startTop = 0;
+            let hasMoved = false;
+
+            minibar.addEventListener('mousedown', (e) => {
+                if (!minibar.classList.contains('show')) return;
+                isDragging = true;
+                hasMoved = false;
+                startY = e.clientY;
+                startTop = minibar.getBoundingClientRect().top;
+                minibar.classList.add('dragging');
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const deltaY = e.clientY - startY;
+                if (Math.abs(deltaY) > 4) hasMoved = true;
+                let newTop = startTop + deltaY;
+                // 约束在视口范围内（顶部留出标题栏，底部留10px）
+                const maxTop = window.innerHeight - minibar.offsetHeight - 10;
+                newTop = Math.max(60, Math.min(maxTop, newTop));
+                minibar.style.top = newTop + 'px';
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                minibar.classList.remove('dragging');
+                // 只有未拖动时才视为点击，恢复面板
+                if (!hasMoved) {
+                    restoreAdminDetail();
+                }
+            });
+        }
+
+        function restoreAdminDetail() {
+            // 恢复：浮条隐藏，重新渲染面板内容（因为closeSidePanel会销毁图表）
+            document.getElementById('adminMinibar').classList.remove('show');
+            if (currentAdminDetail) {
+                showAdminDetail(currentAdminDetail);
+            } else {
+                document.getElementById('adminDetailPanel').classList.add('open');
+            }
+        }
+
+        function closeAdminDetailCompletely() {
+            // 完全关闭：面板和浮条都隐藏（重置视图时调用）
+            document.getElementById('adminDetailPanel').classList.remove('open');
+            document.getElementById('adminMinibar').classList.remove('show');
+            currentAdminDetail = null;
+        }
+
+        // ============ 行政区划下拉树 ============
+        function toggleAdminTree(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('adminTreeDropdown');
+            const badge = document.getElementById('cityBadge');
+            const isOpen = dropdown.classList.contains('show');
+            dropdown.classList.toggle('show');
+            badge.classList.toggle('open');
+            // 默认展开子节点
+            if (!isOpen) {
+                document.getElementById('tree-beijing').classList.add('show');
+                document.querySelector('#tree-beijing').previousElementSibling.querySelector('.tree-toggle').classList.add('expanded');
+            }
+        }
+
+        function toggleTreeNode(e, childId) {
+            e.stopPropagation();
+            const child = document.getElementById(childId);
+            const toggle = e.currentTarget;
+            child.classList.toggle('show');
+            toggle.classList.toggle('expanded');
+        }
+
+        function selectAdminNode(id) {
+            const admin = mockData.adminDivisions.find(a => a.id === id);
+            if (!admin) return;
+            // 更新徽章文字
+            document.getElementById('cityBadgeText').textContent = admin.name;
+            // 高亮选中节点
+            document.querySelectorAll('.tree-node').forEach(n => n.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            // 关闭下拉
+            document.getElementById('adminTreeDropdown').classList.remove('show');
+            document.getElementById('cityBadge').classList.remove('open');
+            // 触发详情
+            showAdminDetail(admin);
+        }
+
+        // 点击页面其他区域关闭下拉树
+        document.addEventListener('click', function(e) {
+            const badge = document.getElementById('cityBadge');
+            if (badge && !badge.contains(e.target)) {
+                document.getElementById('adminTreeDropdown').classList.remove('show');
+                badge.classList.remove('open');
+            }
+        });
 
         function toggleLandLegend() {
             document.getElementById('landLegend').classList.toggle('open');
